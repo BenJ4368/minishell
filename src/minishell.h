@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 14:29:00 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/09/10 23:06:10 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/09/14 13:36:00 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,12 @@ void		free_minishell(t_data *data);
 
 // lexer.c
 void		lexer(t_data *data);
+
+// tokenizer.c
+void		ms_split_write_token(char *dest, char *src, int length);
+void		ms_split_get_tokens(char **tab, char *cmd);
+int			ms_split_count_tokens(char *cmd);
+char		**ms_split_into_tokens(char *cmd);
 
 // list_utils.c
 void		ms_list_add_back(t_ms_list **lexic, char *content,
