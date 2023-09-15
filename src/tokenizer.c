@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 12:32:25 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/09/14 13:55:19 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/09/15 14:28:26 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,22 +46,25 @@ void	ms_split_get_tokens(char **tab, char *cmd)
 				j++;
 				while (cmd[i + j] != '"')
 					j++;
+				j++;
 			}
 			else if (cmd[i] == '\'')
 			{
 				j++;
 				while (cmd[i + j] != '\'')
 					j++;
+				j++;
 			}
 			else
-				while (cmd[i + j] != ' ' || cmd[i + j] != '\0')
+				while (cmd[i + j] != ' ' && cmd[i + j] != '\0')
 					j++;
 			tab[word] = (char *)malloc(sizeof(char) * (j + 1));
-			ms_split_write_token(tab[word], cmd + i, j + 1);
+			ms_split_write_token(tab[word], cmd + i, j);
 			i += j;
-			word ++;
+			word++;
 		}
 	}
+	tab[word] = 0;
 }
 
 int	ms_split_count_tokens(char *cmd)
