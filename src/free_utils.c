@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:35:06 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/09/10 23:12:21 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/09/18 13:18:39 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,11 @@ void	free_minishell(t_data *data)
 	free(data->ms_env);
 	free(data->raw_cmd);
 	free(data->prompt);
+}
+
+
+void	ms_error(char *msg)
+{
+	ft_printf("Error:	%s\n", msg);
+	exit(1);
 }

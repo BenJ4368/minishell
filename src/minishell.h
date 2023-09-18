@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 14:29:00 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/09/14 13:36:00 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/09/18 13:18:40 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,11 @@ void		prompt(t_data *data);
 
 // free_utils.c
 void		free_minishell(t_data *data);
+void		ms_error(char *msg);
 
 // lexer.c
 void		lexer(t_data *data);
+void		check_unclosed_quotes(char *str);
 
 // tokenizer.c
 void		ms_split_write_token(char *dest, char *src, int length);

@@ -6,11 +6,43 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 17:08:13 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/09/14 13:36:19 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/09/18 13:40:28 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	check_unclosed_quotes(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '"')
+		{
+			i++;
+			while (str[i] && str[i] != '"')
+				i++;
+			if (str[i] == '"')
+				i++;
+			else
+				ms_error("Unclosed double quotes.");
+		}
+		if (str[i] == '\'')
+		{
+			i++;
+			while (str[i] && str[i] != '\'')
+				i++;
+			if (str[i] == '\'')
+				i++;
+			else
+				ms_error("Unclosed single quotes.");
+		}
+		else
+			i++;
+	}
+}
 
 void	lexer(t_data *data)
 {
@@ -26,6 +58,7 @@ void	lexer(t_data *data)
 	type = 1;
 	while (data->raw_cmd[i] == ' ' || data->raw_cmd[i] == '	')
 		i++;
+	check_unclosed_quotes(data->raw_cmd);
 	splited_cmd = ms_split_into_tokens(data->raw_cmd);
 	while (splited_cmd[j])
 	{
