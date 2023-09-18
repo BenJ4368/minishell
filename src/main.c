@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 10:41:29 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/09/14 13:35:06 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/09/18 15:31:36 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,17 @@ void	copy_env(t_data *data, char **env)
 	data->ms_env[i] = 0;
 }
 
+void	sigint_handler(int signal)
+{
+	if (signal == SIGINT)
+	{
+		ft_printf("\n");
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+	}
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	t_data		data;
@@ -45,13 +56,14 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		prompt(&data);
+		signal(SIGINT, sigint_handler);
 		data.raw_cmd = readline(data.prompt);
 		if (data.raw_cmd)
 		{
 			lexer(&data);
 			while (data.lexic)
 			{
-				ft_printf("%s\n", data.lexic->content);
+				printf("%s %i %i\n", data.lexic->content, data.lexic->type, data.lexic->state);
 				temp = data.lexic;
 				data.lexic = data.lexic->next;
 				free(temp);

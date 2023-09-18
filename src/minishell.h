@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 14:29:00 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/09/18 13:18:40 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/09/18 14:41:21 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void		ms_error(char *msg);
 void		lexer(t_data *data);
 void		check_unclosed_quotes(char *str);
 
-// tokenizer.c
+// split_token.c
 void		ms_split_write_token(char *dest, char *src, int length);
 void		ms_split_get_tokens(char **tab, char *cmd);
 int			ms_split_count_tokens(char *cmd);
