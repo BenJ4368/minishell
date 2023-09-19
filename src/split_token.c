@@ -6,13 +6,13 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 12:32:25 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/09/18 15:24:02 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/09/19 14:55:41 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ms_split_write_token(char *dest, char *src, int length)
+void	ms_split_write_type(char *dest, char *src, int length)
 {
 	int	i;
 
@@ -36,30 +36,30 @@ void	ms_split_get_tokens(char **tab, char *cmd)
 	i = 0;
 	while (cmd[i])
 	{
-		if (cmd[i] == ' ' || cmd[i] == '\0')
+		if (cmd[i] == ' ')
 			i++;
 		else
 		{
 			j = 0;
 			if (cmd[i] == '"')
 			{
-				j++;
-				while (cmd[i + j] != '"')
+				while (cmd[i + j + 1] && cmd[i + j + 1] != '"')
 					j++;
-				j++;
+				j += 2;
 			}
 			else if (cmd[i] == '\'')
 			{
-				j++;
-				while (cmd[i + j] != '\'')
+				while (cmd[i + j + 1] && cmd[i + j + 1] != '\'')
 					j++;
-				j++;
+				j += 2;
 			}
 			else
 				while (cmd[i + j] != ' ' && cmd[i + j] != '\0')
 					j++;
 			tab[word] = (char *)malloc(sizeof(char) * (j + 1));
-			ms_split_write_token(tab[word], cmd + i, j);
+			if (!tab[word])
+				ms_error("Malloc failed");
+			ms_split_write_type(tab[word], cmd + i, j);
 			i += j;
 			word++;
 		}
@@ -78,15 +78,15 @@ int	ms_split_count_tokens(char *cmd)
 	{
 		if (cmd[i] == '"')
 		{
-			i++;
-			while (cmd[i] != '"')
+			while (cmd[i + 1] && cmd[i + 1] != '"')
 				i++;
+			i++;
 		}
 		if (cmd[i] == '\'')
 		{
-			i++;
-			while (cmd[i] != '\'')
+			while (cmd[i + 1] && cmd[i + 1] != '\'')
 				i++;
+			i++;
 		}
 		if ((cmd[i + 1] == ' ' || cmd[i + 1] == '\0') == 1
 			&& (cmd[i] == ' ' || cmd[i] == '\0') == 0)

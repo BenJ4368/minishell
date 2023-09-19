@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 10:41:29 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/09/18 15:31:36 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/09/19 14:03:16 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,9 @@ int	main(int argc, char **argv, char **env)
 		prompt(&data);
 		signal(SIGINT, sigint_handler);
 		data.raw_cmd = readline(data.prompt);
+		free(data.prompt);
+		if (!ft_strncmp(data.raw_cmd, "exit", 4))
+			break ;
 		if (data.raw_cmd)
 		{
 			lexer(&data);
@@ -68,7 +71,7 @@ int	main(int argc, char **argv, char **env)
 				data.lexic = data.lexic->next;
 				free(temp);
 			}
-			break ;
+			//break ;
 		}
 	}
 	free_minishell(&data);

@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 14:29:00 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/09/18 14:41:21 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/09/19 14:55:41 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define BOLD "\001\x1b[1m\002"
 # define STOP "\001\x1b[0m\002"
 
-enum e_token
+enum e_type
 {
 	WORD = -1,
 	WHITE_SPACE = ' ',
@@ -54,7 +54,7 @@ typedef struct ms_list_s
 {
 	char				*content;
 	int					length;
-	enum e_token		type;
+	enum e_type		type;
 	enum e_state		state;
 	struct ms_list_s	*next;
 	struct ms_list_s	*prev;
@@ -82,16 +82,16 @@ void		ms_error(char *msg);
 
 // lexer.c
 void		lexer(t_data *data);
-void		check_unclosed_quotes(char *str);
+int			check_unclosed_quotes(char *str);
 
 // split_token.c
-void		ms_split_write_token(char *dest, char *src, int length);
+void		ms_split_write_type(char *dest, char *src, int length);
 void		ms_split_get_tokens(char **tab, char *cmd);
 int			ms_split_count_tokens(char *cmd);
 char		**ms_split_into_tokens(char *cmd);
 
 // list_utils.c
 void		ms_list_add_back(t_ms_list **lexic, char *content,
-				enum e_token type, enum e_state state);
+				enum e_type type, enum e_state state);
 
 #endif
