@@ -6,11 +6,11 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 16:15:33 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/09/10 22:28:51 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/09/25 14:15:34 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	prompt_builder(char **prompt, char *usr, char *cwd, int length)
 {

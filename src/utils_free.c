@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_utils.c                                       :+:      :+:    :+:   */
+/*   utils_free.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:35:06 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/09/19 13:55:08 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/09/25 14:16:37 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	free_minishell(t_data *data)
 {
@@ -20,15 +20,6 @@ void	free_minishell(t_data *data)
 	while (data->ms_env[++i])
 		free(data->ms_env[i]);
 	free(data->ms_env);
-	free(data->raw_cmd);
+	free(data->input);
 	free(data->prompt);
-}
-
-
-void	ms_error(char *msg)
-{
-	printf("Error:	%s\n", msg);
-	//rl_replace_line("", 0);
-	//rl_on_new_line();
-	//rl_redisplay();
 }
