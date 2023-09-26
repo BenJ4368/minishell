@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 14:29:00 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/09/25 15:12:46 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/09/26 12:52:40 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int			main(int argc, char **argv, char **env);
 // parse_input.c
 int			check_input(char *input);
 int			check_unclosed_quotes(char *input, int i);
+int			in_quotes(char *str, int x);
 
 // prompt.c
 void		prompt_builder(char **prompt, char *usr, char *cwd, int length);
@@ -55,6 +56,7 @@ void		free_minishell(t_data *data);
 
 // utils_signal.c
 void		sigint_handler(int signal);
+void		sigquit_handler(int signal);
 
 
 #endif

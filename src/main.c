@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 10:41:29 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/09/25 15:10:30 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/09/26 13:12:28 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	main(int argc, char **argv, char **env)
 	{
 		prompt(&data);
 		signal(SIGINT, sigint_handler);
+		signal(SIGQUIT, sigquit_handler);
 		data.input = readline(data.prompt);
 		free(data.prompt);
 		if (data.input)
