@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 10:41:29 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/09/27 14:31:57 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/09/27 15:01:24 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,22 @@ void	copy_env(t_data *data, char **env)
 		data->ms_env[i] = ft_strdup(env[i]);
 	data->ms_env[i] = 0;
 }
+void	get_path(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (data->ms_env[i])
+	{
+		if (!ft_strncmp(data->ms_env[i], "PATH=", 5))
+		{
+			data->ms_path = ft_strdup(data->ms_env[i]);
+			break;
+		}
+		i++;
+	}
+}
+
 
 int	main(int argc, char **argv, char **env)
 {
@@ -39,6 +55,7 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	copy_env(&data, env);
+	get_path(&data);
 	rl_catch_signals = 0;
 	while (1)
 	{

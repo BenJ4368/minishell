@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:55:27 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/09/27 14:31:55 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/09/27 15:01:23 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,10 @@
 
 int check_input(char *input)
 {
-	int i;
-
-	i = 0;
 	if (check_unclosed_quotes(input, 0))
 		return (1);
 	if (check_forbidden_char(input, "\\;#&"))
-	printf("\n");
+		return (ms_error("Forbidden character use."), 1);
 	return (0);
 }
 
@@ -88,6 +85,14 @@ int	check_forbidden_char(char *input,char *excludes)
 	i = 0;
 	while (input[i])
 	{
-		
+		j = 0;
+		while (excludes[j])
+		{
+			if (input[i] == excludes[j] && !in_quotes(input, i, 0, 0))
+				return (1);
+			j++;
+		}
+		i++;
 	}
+	return (0);
 }

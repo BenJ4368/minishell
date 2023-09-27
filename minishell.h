@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 14:29:00 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/09/27 14:31:56 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/09/27 15:01:23 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,21 @@
 typedef struct data_s
 {
 	char		**ms_env;
+	char		*ms_path;
 	char		*prompt;
 	char		*input;
 }				t_data;
 
 // main.c
 void		copy_env(t_data *data, char **env);
+void		get_path(t_data *data);
 int			main(int argc, char **argv, char **env);
 
 // parse_input.c
 int			check_input(char *input);
 int			check_unclosed_quotes(char *input, int i);
 int			in_quotes(char *str, int x, int i, int quotes);
+int			check_forbidden_char(char *input,char *excludes);
 
 // prompt.c
 void		prompt_builder(char **prompt, char *usr, char *cwd, int length);
