@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:55:27 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/09/27 15:01:23 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/09/28 09:32:50 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int check_input(char *input)
 {
 	if (check_unclosed_quotes(input, 0))
 		return (1);
-	if (check_forbidden_char(input, "\\;#&"))
+	if (check_forbidden_char(input, "\\;&*"))
 		return (ms_error("Forbidden character use."), 1);
 	return (0);
 }

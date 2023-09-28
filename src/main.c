@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 10:41:29 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/09/27 15:01:24 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/09/28 10:57:45 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	get_path(t_data *data)
 	}
 }
 
-
 int	main(int argc, char **argv, char **env)
 {
 	t_data		data;
@@ -56,6 +55,7 @@ int	main(int argc, char **argv, char **env)
 	(void)argv;
 	copy_env(&data, env);
 	get_path(&data);
+	close(init_ms_history());
 	rl_catch_signals = 0;
 	while (1)
 	{
@@ -69,7 +69,10 @@ int	main(int argc, char **argv, char **env)
 			if (!ft_strncmp(data.input, "exit", 4))
 				break ;
 			if (!check_input(data.input))
+			{
+				ms_history(data.input);
 				printf("%s\n", data.input);
+			}
 		}
 	}
 	free_minishell(&data);

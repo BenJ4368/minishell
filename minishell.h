@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 14:29:00 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/09/27 15:01:23 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/09/28 10:59:40 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "TheLibft/get_next_line/get_next_line.h"
 # include <stdio.h>
 # include <stdlib.h>
+# include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
@@ -40,6 +41,10 @@ typedef struct data_s
 void		copy_env(t_data *data, char **env);
 void		get_path(t_data *data);
 int			main(int argc, char **argv, char **env);
+
+// history.c
+int			init_ms_history(void);
+int			ms_history(char *input);
 
 // parse_input.c
 int			check_input(char *input);
