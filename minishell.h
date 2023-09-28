@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 14:29:00 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/09/28 10:59:40 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/09/28 19:37:25 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@
 # define BOLD "\001\x1b[1m\002"
 # define STOP "\001\x1b[0m\002"
 
+typedef struct ms_lst_s
+{
+	char			*cmd;
+	struct ms_lst_s	*next;
+	struct ms_lst_s	*prev;
+}				t_ms_list;
 
 typedef struct data_s
 {
@@ -35,6 +41,7 @@ typedef struct data_s
 	char		*ms_path;
 	char		*prompt;
 	char		*input;
+	char		**cmds;
 }				t_data;
 
 // main.c
@@ -46,7 +53,7 @@ int			main(int argc, char **argv, char **env);
 int			init_ms_history(void);
 int			ms_history(char *input);
 
-// parse_input.c
+// check_input.c
 int			check_input(char *input);
 int			check_unclosed_quotes(char *input, int i);
 int			in_quotes(char *str, int x, int i, int quotes);
@@ -65,6 +72,10 @@ void		free_minishell(t_data *data);
 // utils_signal.c
 void		sigint_handler(int signal);
 void		sigquit_handler(int signal);
+
+// utils_list.c
+void		ms_list_add_back(t_ms_list **list, char *cmd);
+t_ms_list	*get_last_node(t_ms_list *list);
 
 
 #endif

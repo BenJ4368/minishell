@@ -1,30 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_free.c                                       :+:      :+:    :+:   */
+/*   utils_list.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/29 16:35:06 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/09/28 19:32:21 by bgaertne         ###   ########.fr       */
+/*   Created: 2023/09/28 18:14:51 by bgaertne          #+#    #+#             */
+/*   Updated: 2023/09/28 18:27:12 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	free_minishell(t_data *data)
+t_ms_list	*get_last_node(t_ms_list *list)
 {
-	int			i;
+	while (list->next)
+		list = list->next;
+	return (list);
+}
 
-	i = -1;
-	while (data->ms_env[++i])
-		free(data->ms_env[i]);
-	free(data->ms_env);
-	i = -1;
-	while (data->cmds[++i])
-		free(data->cmds[i]);
-	free(data->cmds);
-	free(data->ms_path);
-	free(data->input);
-	free(data->prompt);
+void	ms_list_add_back(t_ms_list **list, char *cmd)
+{
+	t_ms_list	*new_node;
+	t_ms_list	*last_node;
+
+	new_node = ft_calloc(sizeof(t_ms_list), 1);
+	new_node->cmd = cmd;
+	if (*list == NULL)
+		*list = new_node;
+	else
+	{
+		last_node = get_last_node(*list);
+		last_node->next = new_node;
+		new_node->prev = last_node;
+	}
+	
 }
