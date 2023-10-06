@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:35:06 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/09/28 19:32:21 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/06 16:18:19 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,6 @@
 
 void	free_minishell(t_data *data)
 {
-	int			i;
-
-	i = -1;
-	while (data->ms_env[++i])
-		free(data->ms_env[i]);
-	free(data->ms_env);
-	i = -1;
-	while (data->cmds[++i])
-		free(data->cmds[i]);
 	free(data->cmds);
 	free(data->ms_path);
 	free(data->input);

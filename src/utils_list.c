@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 18:14:51 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/09/28 18:27:12 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/05 16:29:01 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ t_ms_list	*get_last_node(t_ms_list *list)
 	return (list);
 }
 
-void	ms_list_add_back(t_ms_list **list, char *cmd)
+void	ms_list_add_back(t_ms_list **list, char *content)
 {
 	t_ms_list	*new_node;
 	t_ms_list	*last_node;
 
 	new_node = ft_calloc(sizeof(t_ms_list), 1);
-	new_node->cmd = cmd;
+	new_node->content = content;
 	if (*list == NULL)
 		*list = new_node;
 	else

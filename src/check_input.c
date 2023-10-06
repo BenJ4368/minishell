@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:55:27 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/09/28 17:48:24 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/06 17:08:26 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,22 @@ int	check_forbidden_char(char *input,char *excludes)
 				return (1);
 			j++;
 		}
+		i++;
+	}
+	return (0);
+}
+
+int	check_export(char *input)
+{
+	int	i;
+
+	i = 0;
+	while (input[i])
+	{
+		if (input[0] == '=')
+			return (ms_error("export: '=': not a valid identifier"), 0);
+		if (input[i] == '=')
+			return (1);
 		i++;
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 14:29:00 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/09/28 19:37:25 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/06 18:26:01 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
+# include <dirent.h>
 
 # define CYAN "\001\x1b[36m\002"
 # define MAGENTA "\001\x1b[35m\002"
@@ -30,24 +31,33 @@
 
 typedef struct ms_lst_s
 {
-	char			*cmd;
+	char			*content;
 	struct ms_lst_s	*next;
 	struct ms_lst_s	*prev;
 }				t_ms_list;
 
 typedef struct data_s
 {
-	char		**ms_env;
 	char		*ms_path;
+	t_ms_list	*ms_envv;
 	char		*prompt;
 	char		*input;
 	char		**cmds;
 }				t_data;
 
 // main.c
-void		copy_env(t_data *data, char **env);
-void		get_path(t_data *data);
+void		copy_env(t_ms_list **ms_envv, char **env);
 int			main(int argc, char **argv, char **env);
+
+// builtins_1.c
+void		builtin_env(t_ms_list *ms_envv);
+void		builtin_pwd(void);
+void		builtin_cd(char *path);
+void		builtin_echo(char *str, int n_option);
+
+// builtin_2.c
+void		check_var_exists(t_ms_list **ms_envv, char *var);
+void		builtin_export(t_ms_list **ms_envv, char *var);
 
 // history.c
 int			init_ms_history(void);
@@ -58,6 +68,7 @@ int			check_input(char *input);
 int			check_unclosed_quotes(char *input, int i);
 int			in_quotes(char *str, int x, int i, int quotes);
 int			check_forbidden_char(char *input,char *excludes);
+int			check_export(char *input);
 
 // prompt.c
 void		prompt_builder(char **prompt, char *usr, char *cwd, int length);

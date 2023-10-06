@@ -6,21 +6,33 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 09:40:43 by bgaertne          #+#    #+#             */
-/*   Updated: 2022/12/06 10:56:56 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/04 14:31:48 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_split_nope(char **tab, int size)
+int	ft_split_nope(char **tab, int size, int flag)
 {
-	while (size)
+	if (flag)
 	{
-		free(tab[size]);
-		size--;
+		while (size)
+		{
+			free(tab[size]);
+			size--;
+		}
+		free(tab);
+		return (-1);
 	}
-	free(tab);
-	return (-1);
+	else
+	{
+		while (size > 0)
+		{
+		size--;
+		free(tab[size]);
+		}
+		return (0);
+	}
 }
 
 void	ft_split_write_word(char *dest, const char *src, char c)
@@ -54,13 +66,14 @@ int	ft_split_write(char **tab, char const *s, char c)
 			while ((s[i + j] == c || s[i + j] == '\0') == 0)
 				j++;
 			tab[word] = (char *)malloc(sizeof(char) * (j + 1));
-			if (!tab)
-				return (ft_split_nope(tab, word));
+			if (!tab[word])
+				return (ft_split_nope(tab, word, 1));
 			ft_split_write_word(tab[word], s + i, c);
 			i += j;
 			word++;
 		}
 	}
+	ft_split_nope(tab, word, 0);
 	return (0);
 }
 
@@ -84,6 +97,7 @@ int	ft_split_count_words(char const *s, char c)
 char	**ft_split(char const *s, char c)
 {
 	char	**tab;
+	char	**temp;
 
 	if (!s)
 		return (NULL);
@@ -92,7 +106,9 @@ char	**ft_split(char const *s, char c)
 		return (NULL);
 	tab[ft_split_count_words(s, c)] = 0;
 	ft_split_write(tab, s, c);
-	return (tab);
+	temp = tab;
+	free(tab);
+	return (temp);
 }
 
 /*
@@ -109,4 +125,5 @@ int	main()
 		printf("n=%i: %s\n", i, tab[i]);
 		i++;
 	}
+	system("leaks a.out");
 }*/

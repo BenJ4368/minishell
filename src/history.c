@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 09:46:11 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/09/28 17:38:20 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/04 16:48:43 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	init_ms_history(void)
 	int		fd;
 	char	*buffer;
 
-	fd = open("src/.history", O_RDWR | O_CREAT, 00777);
+	fd = open("/home/ubuntu/Desktop/minishell/src/.history", O_RDWR | O_CREAT, 00777);
 	if (fd == -1)
 		return (ms_error("Failed to open/create .history file."), 1);
 	buffer = get_next_line(fd);
@@ -29,12 +29,11 @@ int	init_ms_history(void)
 	}
 	return (fd);
 }
-
 int	ms_history(char *input)
 {
 	int	fd;
 
-	fd = open("src/.history", O_RDWR | O_APPEND, 00777);
+	fd = open("/home/ubuntu/Desktop/minishell/src/.history", O_RDWR | O_APPEND, 00777);
 	if (fd == -1)
 		return (ms_error("Failed to open/create .history file."), 1);
 	add_history(input);

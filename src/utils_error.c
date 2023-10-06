@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:37:11 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/09/25 15:14:31 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/04 18:02:00 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,5 @@
 
 void	ms_error(char *msg)
 {
-	printf("Error:	%s\n", msg);
+	printf("Minishell: Error:	%s\n", msg);
 }
