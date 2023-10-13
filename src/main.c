@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 10:41:29 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/10/06 18:33:26 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/13 12:10:19 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ int	main(int argc, char **argv, char **env)
 			if (!check_input(data.input))
 			{
 				ms_history(data.input);
-				builtin_export(&data.ms_envv, data.input);
-				builtin_env(data.ms_envv);
+				expand_input(&data);
 			}
 			if (!ft_strncmp(data.input, "exit", 4))
 				break ;

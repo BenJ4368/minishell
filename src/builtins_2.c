@@ -6,13 +6,13 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 18:05:25 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/10/06 18:34:21 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/13 11:56:27 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void check_var_exists(t_ms_list **ms_envv, char *var)
+void	check_var_exists(t_ms_list **ms_envv, char *var)
 {
 	t_ms_list	*current;
 	t_ms_list	*temp;

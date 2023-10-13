@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 14:29:00 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/10/06 18:26:01 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/13 13:07:12 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,11 @@ typedef struct data_s
 void		copy_env(t_ms_list **ms_envv, char **env);
 int			main(int argc, char **argv, char **env);
 
+// expand_input.c
+void		expand_input(t_data *data);
+void		expand_malloc(t_data *data, char *var_name);
+char		*find_var(t_ms_list *ms_envv, char *var_name);
+
 // builtins_1.c
 void		builtin_env(t_ms_list *ms_envv);
 void		builtin_pwd(void);
@@ -66,8 +71,8 @@ int			ms_history(char *input);
 // check_input.c
 int			check_input(char *input);
 int			check_unclosed_quotes(char *input, int i);
-int			in_quotes(char *str, int x, int i, int quotes);
-int			check_forbidden_char(char *input,char *excludes);
+int			check_in_quotes(char *str, int x, int i, int quotes);
+int			check_forbidden_char(char *input, char *excludes);
 int			check_export(char *input);
 
 // prompt.c
@@ -76,8 +81,6 @@ void		prompt(t_data *data);
 
 // utils_error.c
 void		ms_error(char *msg);
-
-// utils_free.c
 void		free_minishell(t_data *data);
 
 // utils_signal.c

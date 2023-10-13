@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:18:22 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/10/06 16:34:42 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/13 11:54:15 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	builtin_env(t_ms_list *ms_envv)
 
 void	builtin_pwd(void)
 {
-	char cwd_buff[100];
+	char	cwd_buff[100];
 
 	getcwd(cwd_buff, 100);
 	write(1, &cwd_buff, ft_strlen(cwd_buff));

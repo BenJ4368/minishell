@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 18:14:51 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/10/05 16:29:01 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/13 11:56:27 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,4 @@ void	ms_list_add_back(t_ms_list **list, char *content)
 		last_node->next = new_node;
 		new_node->prev = last_node;
 	}
-	
 }
