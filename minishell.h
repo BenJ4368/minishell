@@ -51,7 +51,7 @@ int			main(int argc, char **argv, char **env);
 
 // expand_input.c
 void		expand_input(t_data *data);
-void		expand_malloc(t_data *data, char *var_name);
+char		*expand_malloc(t_data *data, char *var_name);
 char		*find_var(t_ms_list *ms_envv, char *var_name);
 
 // builtins_1.c

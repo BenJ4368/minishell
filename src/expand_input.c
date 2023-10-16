@@ -21,30 +21,36 @@ char	*find_var(t_ms_list *ms_envv, char *var_name)
 	{
 		if (!ft_strncmp(runner->content, var_name, ft_strlen(var_name))
 				&& runner->content[ft_strlen(var_name)] == '=')
-		{
-			printf("%s\n", runner->content);
-			return (NULL);
-		}
+			return (runner->content);
 		runner = runner->next;
 	}
 	return (NULL);
 }
 
-void	expand_malloc(t_data *data, char *var_name)
+char	*expand_malloc(t_data *data, char *var_name)
 {
 	int		malloc_len;
 	char	*var;
 
 	var = find_var(data->ms_envv, var_name);
-	(void)var;
-	malloc_len = ft_strlen(data->input) - ft_strlen(var_name);
-	(void)malloc_len;
+	if (var)
+	{
+		printf("%s\n", var);
+		malloc_len = ft_strlen(data->input) - 2 * (1 + ft_strlen(var_name)) + ft_strlen(var) + 1;
+	}
+	else
+	{
+		printf("rien\n");
+		malloc_len = ft_strlen(data->input) - 1 - ft_strlen(var_name) + 1;
+	}
+	return ((char *)malloc(sizeof(char) * malloc_len));
 }
 
 void	expand_input(t_data *data)
 {
 	int		i;
 	int		j;
+	char	*temp;
 	char	buffer[100];
 
 	i = -1;
@@ -58,7 +64,8 @@ void	expand_input(t_data *data)
 				&& data->input[i] != '$' && data->input[i] != '"')
 				buffer[j++] = data->input[i++];
 			buffer[j] = '\0';
-			expand_malloc(data, buffer);
+			temp = expand_malloc(data, buffer);
+			
 		}
 	}
 	printf("%s\n", buffer);

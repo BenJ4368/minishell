@@ -17,7 +17,7 @@ int	init_ms_history(void)
 	int		fd;
 	char	*buffer;
 
-	fd = open("/nfs/homes/bgaertne/goinfre/minishell/src/.history", O_RDWR | O_CREAT, 00777);
+	fd = open("./src/.history", O_RDWR | O_CREAT, 00777);
 	if (fd == -1)
 		return (ms_error("Failed to open/create .history file. bite"), 1);
 	buffer = get_next_line(fd);
@@ -34,7 +34,7 @@ int	ms_history(char *input)
 {
 	int	fd;
 
-	fd = open("/nfs/homes/bgaertne/goinfre/minishell/src/.history", O_RDWR | O_APPEND, 00777);
+	fd = open("./src/.history", O_RDWR | O_APPEND, 00777);
 	if (fd == -1)
 		return (ms_error("Failed to open/create .history file."), 1);
 	add_history(input);
