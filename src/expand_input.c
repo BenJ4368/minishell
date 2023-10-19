@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssalor <ssalor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:47:01 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/10/13 13:00:00 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/18 13:50:33 by ssalor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*find_var(t_ms_list *ms_envv, char *var_name)
 	while (runner)
 	{
 		if (!ft_strncmp(runner->content, var_name, ft_strlen(var_name))
-				&& runner->content[ft_strlen(var_name)] == '=')
+			&& runner->content[ft_strlen(var_name)] == '=')
 			return (runner->content);
 		runner = runner->next;
 	}
@@ -36,7 +36,8 @@ char	*expand_malloc(t_data *data, char *var_name)
 	if (var)
 	{
 		printf("%s\n", var);
-		malloc_len = ft_strlen(data->input) - 2 * (1 + ft_strlen(var_name)) + ft_strlen(var) + 1;
+		malloc_len = ft_strlen(data->input)
+			- 2 *(1 + ft_strlen(var_name)) + ft_strlen(var) + 1;
 	}
 	else
 	{
@@ -50,6 +51,7 @@ void	expand_input(t_data *data)
 {
 	int		i;
 	int		j;
+	char	**tab;
 	char	*temp;
 	char	buffer[100];
 
@@ -65,7 +67,13 @@ void	expand_input(t_data *data)
 				buffer[j++] = data->input[i++];
 			buffer[j] = '\0';
 			temp = expand_malloc(data, buffer);
-			
+			(void)temp;
+			tab = ft_split(data->input, '$');
+			int o = -1;
+			while (tab[++o])
+			{
+				printf("%s\n", tab[o]);
+			}
 		}
 	}
 	printf("%s\n", buffer);

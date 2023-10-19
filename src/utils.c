@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssalor <ssalor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:37:11 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/10/13 13:07:03 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/18 12:37:12 by ssalor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,9 @@ void	free_minishell(t_data *data)
 	free(data->ms_path);
 	free(data->input);
 	free(data->prompt);
+	while (data->ms_envv)
+	{
+		free(data->ms_envv);
+		data->ms_envv = data->ms_envv->next;
+	}
 }
