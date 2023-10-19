@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_signal.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssalor <ssalor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:39:35 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/09/26 12:53:53 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/19 11:57:51 by ssalor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@ void	sigint_handler(int signal)
 	if (signal == SIGINT)
 	{
 		ft_printf("\n");
-		rl_replace_line("", 0);
 		rl_on_new_line();
+		rl_replace_line("", 0);
 		rl_redisplay();
 	}
 }
+//check si l'on est dans un minishell parent(redisplay) ou un enfant(le quitter)
 
 void	sigquit_handler(int signal)
 {

@@ -6,7 +6,7 @@
 /*   By: ssalor <ssalor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 14:29:00 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/10/19 11:15:00 by ssalor           ###   ########.fr       */
+/*   Updated: 2023/10/19 18:00:11 by ssalor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,9 @@ int			main(int argc, char **argv, char **env);
 
 // expand_input.c
 void		expand_input(t_data *data);
-char		*expand_malloc(t_data *data, char *var_name);
+void		expand_new_input(char *start_buff, char *var_name, char *end_buff, t_data *data);
 char		*find_var(t_ms_list *ms_envv, char *var_name);
+int			has_var_sign(char *s);
 
 // builtins_1.c
 void		builtin_env(t_ms_list *ms_envv);
@@ -90,6 +91,5 @@ void		sigquit_handler(int signal);
 // utils_list.c
 void		ms_list_add_back(t_ms_list **list, char *cmd);
 t_ms_list	*get_last_node(t_ms_list *list);
-
 
 #endif

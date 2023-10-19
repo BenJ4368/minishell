@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   history.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssalor <ssalor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 09:46:11 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/10/13 12:14:41 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/19 15:21:36 by ssalor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	init_ms_history(void)
 
 	fd = open("./src/.history", O_RDWR | O_CREAT, 00777);
 	if (fd == -1)
-		return (ms_error("Failed to open/create .history file. bite"), 1);
+		return (ms_error("Failed to open/create .history file."), 1);
 	buffer = get_next_line(fd);
 	while (buffer != NULL)
 	{

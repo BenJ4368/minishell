@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssalor <ssalor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 10:41:29 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/10/13 12:10:19 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/19 16:47:20 by ssalor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,15 @@ int	main(int argc, char **argv, char **env)
 		signal(SIGQUIT, sigquit_handler);
 		data.input = readline(data.prompt);
 		free(data.prompt);
-		if (ft_strlen(data.input) >= 1)
+		if (data.input && !ft_strncmp(data.input, "exit", 4))
+			break ;
+		if (data.input && ft_strlen(data.input) >= 1)
 		{
 			if (!check_input(data.input))
 			{
 				ms_history(data.input);
 				expand_input(&data);
-			}
-			if (!ft_strncmp(data.input, "exit", 4))
-				break ;
+			}	
 		}
 	}
 	free_minishell(&data);
