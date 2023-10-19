@@ -6,7 +6,7 @@
 /*   By: ssalor <ssalor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:47:01 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/10/18 13:50:33 by ssalor           ###   ########.fr       */
+/*   Updated: 2023/10/19 11:18:14 by ssalor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,15 @@ char	*expand_malloc(t_data *data, char *var_name)
 {
 	int		malloc_len;
 	char	*var;
+	char	**value_var_env;
 
 	var = find_var(data->ms_envv, var_name);
 	if (var)
 	{
-		printf("%s\n", var);
 		malloc_len = ft_strlen(data->input)
 			- 2 *(1 + ft_strlen(var_name)) + ft_strlen(var) + 1;
+		value_var_env = ft_split(var, '=');
+		printf("%s\n", value_var_env[1]);
 	}
 	else
 	{
@@ -66,15 +68,10 @@ void	expand_input(t_data *data)
 				&& data->input[i] != '$' && data->input[i] != '"')
 				buffer[j++] = data->input[i++];
 			buffer[j] = '\0';
-			temp = expand_malloc(data, buffer);
+			expand_malloc(data, buffer);
 			(void)temp;
 			tab = ft_split(data->input, '$');
-			int o = -1;
-			while (tab[++o])
-			{
-				printf("%s\n", tab[o]);
-			}
+			(void)tab;
 		}
 	}
-	printf("%s\n", buffer);
 }
