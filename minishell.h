@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssalor <ssalor@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 14:29:00 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/10/19 18:00:11 by ssalor           ###   ########.fr       */
+/*   Updated: 2023/10/20 13:02:52 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <readline/history.h>
 # include <signal.h>
 # include <dirent.h>
+# include <string.h>
 
 # define CYAN "\001\x1b[36m\002"
 # define MAGENTA "\001\x1b[35m\002"
@@ -51,7 +52,7 @@ int			main(int argc, char **argv, char **env);
 
 // expand_input.c
 void		expand_input(t_data *data);
-void		expand_new_input(char *start_buff, char *var_name, char *end_buff, t_data *data);
+char		*new_input(char *start_buff, char *var_name, char *end_buff, t_data *data);
 char		*find_var(t_ms_list *ms_envv, char *var_name);
 int			has_var_sign(char *s);
 

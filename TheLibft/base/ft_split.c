@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 09:40:43 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/10/04 14:31:48 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/20 13:51:10 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ int	ft_split_count_words(char const *s, char c)
 char	**ft_split(char const *s, char c)
 {
 	char	**tab;
-	char	**temp;
 
 	if (!s)
 		return (NULL);
@@ -106,9 +105,7 @@ char	**ft_split(char const *s, char c)
 		return (NULL);
 	tab[ft_split_count_words(s, c)] = 0;
 	ft_split_write(tab, s, c);
-	temp = tab;
-	free(tab);
-	return (temp);
+	return (tab);
 }
 
 /*
