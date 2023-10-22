@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 14:29:00 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/10/20 13:02:52 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/21 17:52:28 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int			main(int argc, char **argv, char **env);
 // expand_input.c
 void		expand_input(t_data *data);
 char		*new_input(char *start_buff, char *var_name, char *end_buff, t_data *data);
-char		*find_var(t_ms_list *ms_envv, char *var_name);
+char		*get_var_value(t_ms_list *ms_envv, char *var_name);
 int			has_var_sign(char *s);
 
 // builtins_1.c

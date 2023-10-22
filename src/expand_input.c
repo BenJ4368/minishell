@@ -6,89 +6,90 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:47:01 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/10/20 13:55:02 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/22 12:50:00 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*find_var(t_ms_list *ms_envv, char *var_name)
+char	*get_var_value(t_ms_list *ms_envv, char *var_name)
 {
 	t_ms_list	*runner;
 
 	runner = ms_envv;
+	if (!var_name)
+		return (NULL);
 	while (runner)
 	{
 		if (!ft_strncmp(runner->content, var_name, ft_strlen(var_name))
 			&& runner->content[ft_strlen(var_name)] == '=')
-			return (runner->content);
+			return (runner->content + ft_strlen(var_name) + 1);
 		runner = runner->next;
 	}
 	return (NULL);
 }
-
-char	*new_input(char *start_buff, char *var_name, char *end_buff, t_data *data)
+char	*get_var_name(char *input)
 {
-	int		malloc_len;
-	char	*var;
-	char	**value_var;
-	char	*new_input;
+	int		i;
+	int		j;
+	char	buff[100];
 
-	var = find_var(data->ms_envv, var_name);
-	if (var)
+	i = -1;
+	j = 0;
+	while (input[++i])
 	{
-		value_var = ft_split(var, '=');
-		malloc_len = ft_strlen(start_buff) + ft_strlen(value_var[1]) + ft_strlen(end_buff) + 1;
-		new_input = malloc(sizeof(char) * malloc_len);
-		ft_strlcat(new_input, start_buff, 1000);
-		ft_strlcat(new_input, value_var[1], 1000);
-		ft_strlcat(new_input, end_buff, 1000);
+		if (input[i] == '$' && check_in_quotes(input, i, 0, 0) != 1)
+		{
+			i++;
+			if (input[i] == '$')
+				return (ft_strdup("$"));
+			while (input[i] && ft_isalnum(input[i]))
+				buff[j++] = input[i++];
+			buff[j] = '\0';
+			return (ft_strdup(buff));
+		}
 	}
-	else
-	{
-		malloc_len = ft_strlen(start_buff) + ft_strlen(end_buff) + 1;
-		new_input = malloc(sizeof(char) * malloc_len);
-		ft_strlcat(new_input, start_buff, 1000);
-		ft_strlcat(new_input, end_buff, 1000);
-	}
-	free(value_var);
 	return (NULL);
 }
 
 void	expand_input(t_data *data)
 {
+	char	*var_name;
+	char	*var_value;
+	char	*new_input;
 	int		i;
 	int		j;
-	char	start_buff[10000];
-	char	buff[100];
-	char	end_buff[10000];
 
-	i = 0;
-	//while (data->input[++i])
-	//{
+	i = -1;
+	while (data->input[++i])
+	{
+		var_name = get_var_name(data->input);
+		if (!var_name)
+			return ;
+		var_value = get_var_value(data->ms_envv, var_name);
+		if (var_value)
+			new_input = ft_calloc(ft_strlen(data->input) + ft_strlen(var_value)
+					- ft_strlen(var_name), sizeof(char));
+		else
+			new_input = ft_calloc(ft_strlen(data->input) - ft_strlen(var_name), sizeof(char));
 		j = 0;
 		while (data->input[i] != '$' || (data->input[i] == '$'
-				&& check_in_quotes(data->input, i, 0, 0) == 1))
-			start_buff[j++] = data->input[i++];
-		start_buff[j] = '\0';
-		j = 0;
-		if (data->input[i] == '$' && check_in_quotes(data->input, i, 0, 0) != 1)
+			&& check_in_quotes(data->input, i, 0, 0) == 1))
+			new_input[j++] = data->input[i++];
+		i++;
+		if (var_value)
 		{
-			i++;
-			while (data->input[i] && data->input[i] != ' '
-				&& data->input[i] != '$' && data->input[i] != '"')
-				buff[j++] = data->input[i++];
-			buff[j] = '\0';
+			ft_strlcat(new_input, var_value, ft_strlen(new_input) + ft_strlen(var_value) + 1);
+			j += ft_strlen(var_value);
 		}
-		j = 0;
+		i += ft_strlen(var_name);
 		while (data->input[i])
-			end_buff[j++] = data->input[i++];
-		end_buff[j] = '\0';
+			new_input[j++] = data->input[i++];
 		free(data->input);
-		data->input = new_input(start_buff, buff, end_buff, data);
-		//if (has_var_sign(data->input))
-		//	i = -1;
-	//}
+		data->input = new_input;
+		if (has_var_sign(data->input))
+			i = -1;
+	}
 }
 
 int	has_var_sign(char *s)

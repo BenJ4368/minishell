@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssalor <ssalor@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 10:41:29 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/10/19 16:47:20 by ssalor           ###   ########.fr       */
+/*   Updated: 2023/10/22 12:46:20 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,16 @@
 
 void	copy_env(t_ms_list **ms_envv, char **env)
 {
-	int	i;
+	int		i;
+	char	buff[100];
 
 	i = -1;
 	while (env[++i])
 		ms_list_add_back(ms_envv, env[i]);
+	ft_bzero(buff, 100);
+	ft_strlcat(buff, "$=", 3);
+	ft_strlcat(buff, ft_itoa(getpid()), ft_strlen(ft_itoa(getpid())) + 4);
+	ms_list_add_back(ms_envv, ft_strdup(buff));
 }
 
 int	main(int argc, char **argv, char **env)
@@ -46,6 +51,7 @@ int	main(int argc, char **argv, char **env)
 			{
 				ms_history(data.input);
 				expand_input(&data);
+				printf("%s\n", data.input);
 			}	
 		}
 	}
