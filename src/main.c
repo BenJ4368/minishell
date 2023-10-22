@@ -6,11 +6,34 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 10:41:29 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/10/22 12:46:20 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/22 21:59:51 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	ms_unsupported_char(char *input)
+{
+	int i;
+
+	i = -1;
+	while (input[++i])
+	{
+		if (input[i] == '$' && input[i + 1] == '$')
+			return (ms_error("Unsupported character mix: '$$'."), 1);
+		if (input[i] == '<' && input[i + 1] == '<' && input[i + 2] == '<')
+			return (ms_error("Unsupported character mix: '<<<'."), 1);
+		if (input[i] == '>' && input[i + 1] == '>' && input[i + 2] == '>')
+			return (ms_error("Unsupported character mix: '>>>'."), 1);
+		if (input[i] == '<' && input[i + 1] == '<' && input[i + 2] == '<')
+			return (ms_error("Unsupported character mix: '<<<'."), 1);
+		if (input[i] == '>' && input[i + 1] == '|')
+			return (ms_error("Unsupported character mix: '>|'."), 1);
+		if (input[i] == '<' && input[i + 1] == '|')
+			return (ms_error("Unsupported character mix: '<|'."), 1);
+	}
+	return (0);
+}
 
 void	copy_env(t_ms_list **ms_envv, char **env)
 {

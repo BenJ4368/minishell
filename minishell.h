@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 14:29:00 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/10/21 17:52:28 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/22 22:00:11 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct data_s
 }				t_data;
 
 // main.c
+int			ms_unsupported_char(char *input);
 void		copy_env(t_ms_list **ms_envv, char **env);
 int			main(int argc, char **argv, char **env);
 

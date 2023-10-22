@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:55:27 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/10/13 11:54:33 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/22 21:59:14 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,14 @@
 
 int	check_input(char *input)
 {
+	if (input[1] == '|')
+		return (ms_error("Syntax error near unexpected token '|'"), 1);
 	if (check_unclosed_quotes(input, 0))
 		return (1);
 	if (check_forbidden_char(input, "\\;&*"))
 		return (ms_error("Forbidden character use."), 1);
+	if (ms_unsupported_char(input))
+		return (1);
 	return (0);
 }
 
