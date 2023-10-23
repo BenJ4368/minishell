@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 09:40:43 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/10/23 10:48:32 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/23 12:48:46 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ int	main()
 {
 	char s[] = "ooaooaoo";
 	char c = 'a';
+	
 	int i;
 	char **tab = ft_split(s, c);
 	

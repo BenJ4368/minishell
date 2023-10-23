@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:55:27 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/10/22 21:59:14 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/23 14:09:16 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	check_unclosed_quotes(char *input, int i)
 	return (0);
 }
 
-int	check_in_quotes(char *str, int x, int i, int quotes)
+int	check_in_quotes(const char *str, int x, int i, int quotes)
 {
 	while (str[i])
 	{

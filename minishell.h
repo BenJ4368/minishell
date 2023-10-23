@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 14:29:00 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/10/23 10:45:44 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/23 14:09:01 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,21 @@ int			ms_unsupported_char(char *input);
 void		copy_env(t_ms_list **ms_envv, char **env);
 int			main(int argc, char **argv, char **env);
 
+// ft_split_unquoted.c
+char		**ft_split_unquoted(char const *s, char c);
+int			ft_split_unquoted_count_words(char const *s, char c);
+int			ft_split_unquoted_write(char **tab, char const *s, char c);
+void		ft_split_unquoted_write_word(char *dest, const char *src, char c);
+int			ft_split_unquoted_nope(char **tab, int size, int flag);
+
 // expand_input.c
 char		*get_var_value(t_ms_list *ms_envv, char *var_name);
 char		*get_var_name(char *input);
 void		expand_input(t_data *data);
 int			has_var_sign(char *s);
+
+// sanitize_input.c
+void		sanitize_input(t_data *data);
 
 // builtins_1.c
 void		builtin_env(t_ms_list *ms_envv);
@@ -81,7 +91,7 @@ int			ms_history(char *input);
 // check_input.c
 int			check_input(char *input);
 int			check_unclosed_quotes(char *input, int i);
-int			check_in_quotes(char *str, int x, int i, int quotes);
+int			check_in_quotes(const char *str, int x, int i, int quotes);
 int			check_forbidden_char(char *input, char *excludes);
 int			check_export(char *input);
 

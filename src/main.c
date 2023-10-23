@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 10:41:29 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/10/23 10:55:58 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/23 14:06:39 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int	ms_unsupported_char(char *input)
 	i = -1;
 	while (input[++i])
 	{
-		if (input[i] == '$' && input[i + 1] == '$')
-			return (ms_error("Unsupported character mix: '$$'."), 1);
+		if (input[i] == '&' && input[i + 1] == '&')
+			return (ms_error("Unsupported character mix: '&&'."), 1);
 		if (input[i] == '<' && input[i + 1] == '<' && input[i + 2] == '<')
 			return (ms_error("Unsupported character mix: '<<<'."), 1);
 		if (input[i] == '>' && input[i + 1] == '>' && input[i + 2] == '>')
@@ -38,15 +38,18 @@ int	ms_unsupported_char(char *input)
 void	copy_env(t_ms_list **ms_envv, char **env)
 {
 	int		i;
+	char	*pid;
 	char	buff[100];
 
 	i = -1;
 	while (env[++i])
 		ms_list_add_back(ms_envv, env[i]);
+	pid = ft_itoa(getpid());
 	ft_bzero(buff, 100);
 	ft_strlcat(buff, "$=", 3);
-	ft_strlcat(buff, ft_itoa(getpid()), ft_strlen(ft_itoa(getpid())) + 4);
+	ft_strlcat(buff, pid, ft_strlen(pid) + 4);
 	ms_list_add_back(ms_envv, ft_strdup(buff));
+	free(pid);
 }
 
 int	main(int argc, char **argv, char **env)
@@ -67,14 +70,14 @@ int	main(int argc, char **argv, char **env)
 		data.input = readline(data.prompt);
 		free(data.prompt);
 		if (data.input && !ft_strncmp(data.input, "exit", 4))
-			break ;
+			exit (0);
 		if (data.input && ft_strlen(data.input) >= 1)
 		{
 			if (!check_input(data.input))
 			{
 				ms_history(data.input);
 				expand_input(&data);
-				split_on_pipe(&data);
+				sanitize_input(&data);
 				printf("%s\n", data.input);
 			}	
 		}
