@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 14:29:00 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/10/22 22:00:11 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/23 10:45:44 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,20 @@ typedef struct ms_lst_s
 	struct ms_lst_s	*prev;
 }				t_ms_list;
 
-typedef struct data_s
+typedef struct ms_cmd_s
 {
-	char		*ms_path;
-	t_ms_list	*ms_envv;
-	char		*prompt;
-	char		*input;
-	char		**cmds;
+	char			*line;
+	struct ms_cmd_s	*next;
+	struct ms_cmd_s	*prev;
+}				t_ms_cmd;
+
+typedef struct ms_data_s
+{
+	char			*ms_path;
+	t_ms_list		*ms_envv;
+	char			*prompt;
+	char			*input;
+	char			**cmds;
 }				t_data;
 
 // main.c
@@ -52,9 +59,9 @@ void		copy_env(t_ms_list **ms_envv, char **env);
 int			main(int argc, char **argv, char **env);
 
 // expand_input.c
-void		expand_input(t_data *data);
-char		*new_input(char *start_buff, char *var_name, char *end_buff, t_data *data);
 char		*get_var_value(t_ms_list *ms_envv, char *var_name);
+char		*get_var_name(char *input);
+void		expand_input(t_data *data);
 int			has_var_sign(char *s);
 
 // builtins_1.c

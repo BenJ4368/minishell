@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 10:41:29 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/10/22 21:59:51 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/23 10:55:58 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ms_unsupported_char(char *input)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (input[++i])
@@ -74,6 +74,7 @@ int	main(int argc, char **argv, char **env)
 			{
 				ms_history(data.input);
 				expand_input(&data);
+				split_on_pipe(&data);
 				printf("%s\n", data.input);
 			}	
 		}

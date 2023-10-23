@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:47:01 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/10/22 12:50:00 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/23 10:23:35 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ char	*get_var_value(t_ms_list *ms_envv, char *var_name)
 	}
 	return (NULL);
 }
+
 char	*get_var_name(char *input)
 {
 	int		i;

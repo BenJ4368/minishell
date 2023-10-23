@@ -1,35 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   split_on_pipe.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/25 13:37:11 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/10/23 10:24:50 by bgaertne         ###   ########.fr       */
+/*   Created: 2023/10/23 10:46:05 by bgaertne          #+#    #+#             */
+/*   Updated: 2023/10/23 10:55:57 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ms_error(char *msg)
+void	split_on_pipe(t_data *data)
 {
-	printf("Minishell: Error:	%s\n", msg);
-}
-
-void	free_minishell(t_data *data)
-{
-	if (data->cmds)
-		free(data->cmds);
-	if (data->ms_path)
-		free(data->ms_path);
-	if (data->input)
-		free(data->input);
-	if (data->prompt)
-		free(data->prompt);
-	while (data->ms_envv)
-	{
-		free(data->ms_envv);
-		data->ms_envv = data->ms_envv->next;
-	}
+	ft_split_unquoted(data->input, "|");
 }
