@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:47:01 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/10/23 11:28:55 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/24 11:04:37 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ char	*get_var_name(char *input)
 		if (input[i] == '$' && check_in_quotes(input, i, 0, 0) != 1)
 		{
 			i++;
-			if (input[i] == '$')
-				return (ft_strdup("$"));
 			while (input[i] && ft_isalnum(input[i]))
 				buff[j++] = input[i++];
 			buff[j] = '\0';
