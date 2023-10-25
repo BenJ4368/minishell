@@ -6,7 +6,7 @@
 #    By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/24 10:41:40 by bgaertne          #+#    #+#              #
-#    Updated: 2023/10/24 14:31:21 by bgaertne         ###   ########.fr        #
+#    Updated: 2023/10/25 13:24:01 by bgaertne         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ $(LIBFT):
 	@gcc -Wall -Werror -Wextra -c $< -o $@ -lreadline 
 
 $(NAME): $(OBJS)
-	@gcc -Wall -Werror -Wextra -fsanitize=address -fsanitize=leak $(OBJS) $(LIBFT) -o $(NAME) -lreadline 
+	@gcc -Wall -Werror -Wextra -fsanitize=address $(OBJS) $(LIBFT) -o $(NAME) -lreadline 
 	@echo "$(_CYAN)$(_BOLD)[Makefile]$(_END) $(_BOLD)$(NAME) $(_GREEN)created$(_END)"
 
 clean:

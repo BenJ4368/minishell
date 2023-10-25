@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 14:29:00 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/10/24 15:08:26 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/25 13:20:50 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int			has_var_sign(char *s);
 
 // sanitize_input.c
 void		sanitize_input(t_data *data);
+int			is_white_space(char c);
 
 // builtins_1.c
 void		builtin_env(t_ms_list *ms_envv);
