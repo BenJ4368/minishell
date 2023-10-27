@@ -6,7 +6,7 @@
 /*   By: ssalor <ssalor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 18:05:25 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/10/27 14:48:20 by ssalor           ###   ########.fr       */
+/*   Updated: 2023/10/27 15:21:17 by ssalor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	builtin_export(t_ms_list **ms_envv, char *var)
 		ms_list_add_back(ms_envv, var);
 	}
 }
-
+/*
 void	builtin_unset(t_ms_list **ms_envv, char *var)
 {
 	if ()
@@ -56,4 +56,4 @@ void	builtin_unset(t_ms_list **ms_envv, char *var)
 		check_var_exists(ms_envv, var);
 		ms_list_add_back(ms_envv, var);
 	}
-}
+}*/

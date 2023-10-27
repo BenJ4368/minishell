@@ -6,7 +6,7 @@
 /*   By: ssalor <ssalor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 10:41:29 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/10/27 14:54:22 by ssalor           ###   ########.fr       */
+/*   Updated: 2023/10/27 15:22:38 by ssalor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ int	main(int argc, char **argv, char **env)
 				//builtin_cd(data.input);
 				//builtin_echo(data.input, 1);
 				//builtin_pwd();
-				builtin_export(&data.ms_envv, data.input);
-				builtin_env(data.ms_envv);
+				//builtin_export(&data.ms_envv, data.input);
+				//builtin_env(data.ms_envv);
 			}	
 		}
 	}
