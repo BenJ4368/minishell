@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sanitize_input.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssalor <ssalor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 13:56:05 by ssalor            #+#    #+#             */
-/*   Updated: 2023/10/25 13:35:53 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/27 11:49:29 by ssalor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	sanitize_input(t_data *data)
 	i = -1;
 	while (data->input[++i])
 	{
-		if (is_white_space(data->input[i]) && check_in_quotes(data->input, i, 0, 0) == 0)
+		if (is_white_space(data->input[i])
+			&& check_in_quotes(data->input, i, 0, 0) == 0)
 			data->input[i] = ' ';
 	}
 }

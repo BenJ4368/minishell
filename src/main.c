@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssalor <ssalor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 10:41:29 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/10/25 15:27:52 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/27 14:14:49 by ssalor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	main(int argc, char **argv, char **env)
 	(void)argv;
 	data.ms_envv = NULL;
 	copy_env(&data.ms_envv, env);
-	//close(init_ms_history());
+	init_ms_history();
 	rl_catch_signals = 0;
 	while (1)
 	{
@@ -67,12 +67,17 @@ int	main(int argc, char **argv, char **env)
 			exit (0);
 		if (data.input && ft_strlen(data.input) >= 1)
 		{
-			//ms_history(data.input);
+			ms_history(data.input);
 			if (!check_input(data.input))
 			{
 				expand_input(&data);
 				sanitize_input(&data);
-				printf("%s\n", data.input);
+				//builtin_cd(data.input);
+				//builtin_echo(data.input, 1);
+				//builtin_pwd();
+				builtin_export(&data.ms_envv, data.input);
+				builtin_env(data.ms_envv);
+
 			}	
 		}
 	}

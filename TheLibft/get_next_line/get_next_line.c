@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssalor <ssalor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 13:36:47 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/09/28 11:16:35 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/27 13:45:03 by ssalor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ char	*ft_leftover(char *reserve)
 	while (reserve[i])
 		leftover[j++] = reserve[i++];
 	free(reserve);
+	leftover[j] = '\0';
 	return (leftover);
 }
 
@@ -52,7 +53,6 @@ char	*ft_line(char *reserve)
 {
 	int		i;
 	char	*line;
-	char	*temp;
 
 	i = 0;
 	if (!reserve[i])
@@ -71,9 +71,7 @@ char	*ft_line(char *reserve)
 	if (reserve[i] && reserve[i] == '\n')
 		line[i] = '\n';
 	i++;
-	temp = line;
-	free(line);
-	return (temp);
+	return (line);
 }
 
 char	*ft_read_and_reserve(int fd, char *reserve)

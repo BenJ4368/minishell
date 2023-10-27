@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssalor <ssalor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 18:05:25 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/10/13 11:56:27 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/27 14:48:20 by ssalor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,15 @@ void	check_var_exists(t_ms_list **ms_envv, char *var)
 void	builtin_export(t_ms_list **ms_envv, char *var)
 {
 	if (check_export(var))
+	{
+		check_var_exists(ms_envv, var);
+		ms_list_add_back(ms_envv, var);
+	}
+}
+
+void	builtin_unset(t_ms_list **ms_envv, char *var)
+{
+	if ()
 	{
 		check_var_exists(ms_envv, var);
 		ms_list_add_back(ms_envv, var);
