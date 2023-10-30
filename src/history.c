@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   history.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssalor <ssalor@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 09:46:11 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/10/27 14:07:50 by ssalor           ###   ########.fr       */
+/*   Updated: 2023/10/30 10:09:21 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	init_ms_history(void)
 	char	*buffer;
 	char	*history_entry;
 
-	fd = open("/local-home/ssalor/Desktop/minishell/src/.history", O_RDWR | O_CREAT, 77777);
+	fd = open("/local-home/bgaertne/Desktop/minishell/src/.history", O_RDWR | O_CREAT, 77777);
 	if (fd == -1)
 		return (ms_error("Failed to open/create .history file."), 1);
 	buffer = get_next_line(fd);
@@ -39,7 +39,7 @@ int	ms_history(char *input)
 {
 	int	fd;
 
-	fd = open("/local-home/ssalor/Desktop/minishell/src/.history", O_RDWR | O_APPEND, 00777);
+	fd = open("/local-home/bgaertne/Desktop/minishell/src/.history", O_RDWR | O_APPEND, 00777);
 	if (fd == -1)
 		return (ms_error("Failed to open/create .history file."), 1);
 	add_history(input);

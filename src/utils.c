@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssalor <ssalor@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:37:11 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/10/27 12:20:48 by ssalor           ###   ########.fr       */
+/*   Updated: 2023/10/30 12:56:34 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	ms_error(char *msg)
 
 void	free_minishell(t_data *data)
 {
-	if (data->cmds)
-		free(data->cmds);
+	int	i;
+	
 	if (data->ms_path)
 		free(data->ms_path);
 	if (data->input)
@@ -31,5 +31,13 @@ void	free_minishell(t_data *data)
 	{
 		free(data->ms_envv);
 		data->ms_envv = data->ms_envv->next;
+	}
+	while (data->ms_cmd)
+	{
+		i = -1;
+		while (data->ms_cmd->content[++i])
+			free(data->ms_cmd->content[i]);
+		free(data->ms_cmd);
+		data->ms_cmd = data->ms_cmd->next;
 	}
 }

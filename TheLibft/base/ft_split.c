@@ -6,33 +6,21 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 09:40:43 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/10/23 12:48:46 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/30 14:43:51 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_split_nope(char **tab, int size, int flag)
+int	ft_split_nope(char **tab, int size)
 {
-	if (flag)
+	while (size)
 	{
-		while (size)
-		{
-			free(tab[size]);
-			size--;
-		}
-		free(tab);
-		return (-1);
+		free(tab[size]);
+		size--;
 	}
-	else
-	{
-		while (size > 0)
-		{
-			size--;
-			free(tab[size]);
-		}
-		return (0);
-	}
+	free(tab);
+	return (-1);
 }
 
 void	ft_split_write_word(char *dest, const char *src, char c)
@@ -66,14 +54,13 @@ int	ft_split_write(char **tab, char const *s, char c)
 			while ((s[i + j] == c || s[i + j] == '\0') == 0)
 				j++;
 			tab[word] = (char *)malloc(sizeof(char) * (j + 1));
-			if (!tab[word])
-				return (ft_split_nope(tab, word, 1));
+			if (!tab)
+				return (ft_split_nope(tab, word));
 			ft_split_write_word(tab[word], s + i, c);
 			i += j;
 			word++;
 		}
 	}
-	ft_split_nope(tab, word, 0);
 	return (0);
 }
 

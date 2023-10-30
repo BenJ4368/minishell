@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssalor <ssalor@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 10:41:29 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/10/27 15:22:38 by ssalor           ###   ########.fr       */
+/*   Updated: 2023/10/30 14:08:26 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	ms_unsupported_char(char *input)
 	i = -1;
 	while (input[++i])
 	{
+		if (input[0] == '|' || (input[i] == '|' && input[i + 1] == '|'))
+			return (ms_error("Syntax error near unexpected token '|'"), 1);
 		if (input[i] == '$' && input[i + 1] == '$')
 			return (ms_error("Unsupported character mix: '$$'."), 1);
 		if (input[i] == '&' && input[i + 1] == '&')
@@ -72,6 +74,7 @@ int	main(int argc, char **argv, char **env)
 			{
 				expand_input(&data);
 				sanitize_input(&data);
+				split_on_pipe(&data);
 				//builtin_cd(data.input);
 				//builtin_echo(data.input, 1);
 				//builtin_pwd();

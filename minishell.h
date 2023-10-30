@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssalor <ssalor@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 14:29:00 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/10/27 12:35:37 by ssalor           ###   ########.fr       */
+/*   Updated: 2023/10/30 14:53:53 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct ms_lst_s
 
 typedef struct ms_cmd_s
 {
-	char			*line;
+	char			**content;
 	struct ms_cmd_s	*next;
 	struct ms_cmd_s	*prev;
 }				t_ms_cmd;
@@ -48,9 +48,9 @@ typedef struct ms_data_s
 {
 	char			*ms_path;
 	t_ms_list		*ms_envv;
+	t_ms_cmd		*ms_cmd;
 	char			*prompt;
 	char			*input;
-	char			**cmds;
 }				t_data;
 
 // main.c
@@ -63,7 +63,10 @@ char		**ft_split_unquoted(char const *s, char c);
 int			ft_split_unquoted_count_words(char const *s, char c);
 int			ft_split_unquoted_write(char **tab, char const *s, char c);
 void		ft_split_unquoted_write_word(char *dest, const char *src, char c);
-int			ft_split_unquoted_nope(char **tab, int size, int flag);
+int			ft_split_unquoted_nope(char **tab, int size);
+
+// split_on_pipe.c
+void		split_on_pipe(t_data *data);
 
 // expand_input.c
 char		*get_var_value(t_ms_list *ms_envv, char *var_name);
@@ -110,6 +113,8 @@ void		sigquit_handler(int signal);
 
 // utils_list.c
 void		ms_list_add_back(t_ms_list **list, char *cmd);
-t_ms_list	*get_last_node(t_ms_list *list);
+t_ms_list	*get_last_node_list(t_ms_list *list);
+void		ms_cmd_add_back(t_ms_cmd **list, char **content);
+t_ms_cmd	*get_last_node_cmd(t_ms_cmd *list);
 
 #endif

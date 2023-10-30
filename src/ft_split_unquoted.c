@@ -6,33 +6,21 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:52:52 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/10/23 14:09:18 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/30 14:54:04 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_split_unquoted_nope(char **tab, int size, int flag)
+int	ft_split_unquoted_nope(char **tab, int size)
 {
-	if (flag)
+	while (size)
 	{
-		while (size)
-		{
-			free(tab[size]);
-			size--;
-		}
-		free(tab);
-		return (-1);
+		free(tab[size]);
+		size--;
 	}
-	else
-	{
-		while (size > 0)
-		{
-			size--;
-			free(tab[size]);
-		}
-		return (0);
-	}
+	free(tab);
+	return (-1);
 }
 
 void	ft_split_unquoted_write_word(char *dest, const char *src, char c)
@@ -67,13 +55,12 @@ int	ft_split_unquoted_write(char **tab, char const *s, char c)
 				j++;
 			tab[word] = (char *)malloc(sizeof(char) * (j + 1));
 			if (!tab[word])
-				return (ft_split_unquoted_nope(tab, word, 1));
+				return (ft_split_unquoted_nope(tab, word));
 			ft_split_unquoted_write_word(tab[word], s + i, c);
 			i += j;
 			word++;
 		}
 	}
-	ft_split_unquoted_nope(tab, word, 0);
 	return (0);
 }
 
