@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 10:41:29 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/10/30 14:08:26 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/30 16:45:04 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	main(int argc, char **argv, char **env)
 	(void)argv;
 	data.ms_envv = NULL;
 	copy_env(&data.ms_envv, env);
-	init_ms_history();
+	//init_ms_history();
 	rl_catch_signals = 0;
 	while (1)
 	{
@@ -69,7 +69,7 @@ int	main(int argc, char **argv, char **env)
 			exit (0);
 		if (data.input && ft_strlen(data.input) >= 1)
 		{
-			ms_history(data.input);
+			//ms_history(data.input);
 			if (!check_input(data.input))
 			{
 				expand_input(&data);
