@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 14:29:00 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/10/30 14:53:53 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/31 14:40:26 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,19 @@
 # define MAGENTA "\001\x1b[35m\002"
 # define BOLD "\001\x1b[1m\002"
 # define STOP "\001\x1b[0m\002"
+
+enum e_type {
+	NONE,
+	ARG,
+	FILE_IN,
+	HERE_DOC,
+	FILE_OUT,
+	FILE_OUT_SUR,
+	OPEN_FILE,
+	LIMITOR,
+	EXIT_FILE,
+	EXITE_FILE_RET
+};
 
 typedef struct ms_lst_s
 {
@@ -67,6 +80,7 @@ int			ft_split_unquoted_nope(char **tab, int size);
 
 // split_on_pipe.c
 void		split_on_pipe(t_data *data);
+void		free_cmd(t_data *data);
 
 // expand_input.c
 char		*get_var_value(t_ms_list *ms_envv, char *var_name);
