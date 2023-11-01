@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 10:41:29 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/01 13:57:14 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/01 14:55:16 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	main(int argc, char **argv, char **env)
 		data.input = readline(data.prompt);
 		free(data.prompt);
 		if (data.input && !ft_strncmp(data.input, "exit", 4))
-			return (free_minishell(&data), 0);
+			exit (0);
 		if (data.input && ft_strlen(data.input) >= 1)
 		{
 			ms_history(data.input);
@@ -97,7 +97,6 @@ int	main(int argc, char **argv, char **env)
 			}	
 		}
 	}
-	free_minishell(&data);
 	system("leaks minishell");
-	return (0);
+	exit (0);
 }

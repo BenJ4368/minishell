@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:46:05 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/01 13:55:54 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/01 15:06:30 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,20 @@ void	split_on_pipe(t_data *data)
 
 void	free_cmd(t_data *data)
 {
-	int	i;
+	int			i;
+	t_ms_cmd	*current;
+	t_ms_cmd	*next;
 
-	while (data->ms_cmd)
+	current = data->ms_cmd;
+	while (current)
 	{
+		next = current->next;
 		i = -1;
-		while (data->ms_cmd->content[++i])
-			free(data->ms_cmd->content[i]);
-		free(data->ms_cmd->content);
-		data->ms_cmd = data->ms_cmd->next;
+		while (current->content[++i])
+			free(current->content[i]);
+		free(current->content);
+		free(current);
+		current = next;
+		data->ms_cmd = NULL;
 	}
 }
