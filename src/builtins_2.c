@@ -3,57 +3,85 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssalor <ssalor@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 18:05:25 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/10/27 15:21:17 by ssalor           ###   ########.fr       */
+/*   Updated: 2023/11/02 17:12:33 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	check_var_exists(t_ms_list **ms_envv, char *var)
+void	check_then_delete_var(t_ms_list **ms_exports, char *var)
 {
 	t_ms_list	*current;
 	t_ms_list	*temp;
 	int			i;
 
-	current = *ms_envv;
+	current = *ms_exports;
 	temp = NULL;
-	i = 0;
-	while (var[i] != '=')
+	i = 1;
+	while (var[i] && var[i] != '=')
 		i++;
 	while (current)
 	{
-		if (!strncmp(current->content, var, i))
+		if (!strncmp(current->content, var, i + 1))
 		{
 			temp = current;
 			if (current->prev)
 				current->prev->next = current->next;
 			if (current->next)
 				current->next->prev = current->prev;
-			if (current == *ms_envv)
-				*ms_envv = current->next;
+			if (current == *ms_exports)
+				*ms_exports = current->next;
+			free(temp->content);
 			free(temp);
 		}
 		current = current->next;
 	}
 }
 
-void	builtin_export(t_ms_list **ms_envv, char *var)
+void	builtin_export(t_ms_list **ms_exports, char **vars)
 {
-	if (check_export(var))
+	int	i;
+
+	i = -1;
+	while (vars[++i])
 	{
-		check_var_exists(ms_envv, var);
-		ms_list_add_back(ms_envv, var);
+		if (check_export(vars[i]))
+		{
+			check_then_delete_var(ms_exports, vars[i]);
+			ms_list_add_back(ms_exports, ft_strdup(vars[i]));
+		}
 	}
 }
-/*
-void	builtin_unset(t_ms_list **ms_envv, char *var)
+
+void	builtin_unset(t_ms_list **ms_exports, char **vars)
 {
-	if ()
+	int		i;
+	char	*var;
+
+	i = -1;
+	while (vars[++i])
 	{
-		check_var_exists(ms_envv, var);
-		ms_list_add_back(ms_envv, var);
+		var = ft_strjoin(vars[i], "=");
+		check_then_delete_var(ms_exports, var);
+		free(var);
+		var = NULL;
 	}
-}*/
+}
+
+int	is_builtin(char *cmd_name)
+{
+	int	len;
+
+	len = ft_strlen(cmd_name);
+	if (!ft_strncmp(cmd_name, "env\0", len + 1)
+		|| !ft_strncmp(cmd_name, "pwd\0", len + 1)
+		|| !ft_strncmp(cmd_name, "cd\0", len + 1)
+		|| !ft_strncmp(cmd_name, "echo\0", len + 1)
+		|| !ft_strncmp(cmd_name, "export\0", len + 1)
+		|| !ft_strncmp(cmd_name, "unset\0", len + 1))
+		return (1);
+	return (0);
+}

@@ -6,19 +6,27 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:47:01 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/10/24 11:04:37 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/02 15:45:12 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*get_var_value(t_ms_list *ms_envv, char *var_name)
+char	*get_var_value(t_ms_list *ms_envv, t_ms_list *exports, char *var_name)
 {
 	t_ms_list	*runner;
 
-	runner = ms_envv;
 	if (!var_name)
 		return (NULL);
+	runner = ms_envv;
+	while (runner)
+	{
+		if (!ft_strncmp(runner->content, var_name, ft_strlen(var_name))
+			&& runner->content[ft_strlen(var_name)] == '=')
+			return (runner->content + ft_strlen(var_name) + 1);
+		runner = runner->next;
+	}
+	runner = exports;
 	while (runner)
 	{
 		if (!ft_strncmp(runner->content, var_name, ft_strlen(var_name))
@@ -65,7 +73,7 @@ void	expand_input(t_data *data)
 		var_name = get_var_name(data->input);
 		if (!var_name)
 			return ;
-		var_value = get_var_value(data->ms_envv, var_name);
+		var_value = get_var_value(data->ms_envv, data->exports, var_name);
 		if (var_value)
 			new_input = ft_calloc(ft_strlen(data->input) + ft_strlen(var_value)
 					- ft_strlen(var_name), sizeof(char));
@@ -85,7 +93,9 @@ void	expand_input(t_data *data)
 		while (data->input[i])
 			new_input[j++] = data->input[i++];
 		free(data->input);
+		data->input = NULL;
 		data->input = new_input;
+		free(var_name);
 		if (has_var_sign(data->input))
 			i = -1;
 	}
