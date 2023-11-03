@@ -30,3 +30,56 @@ cd ..
 cd minishell/
 ls
 ls -la
+ls
+echo
+echo bonjour
+echo -n bonjour
+echo "-n" bonjour
+echo -q bonjour
+echo "bonjour"
+truc
+ls
+clear
+clear
+ls
+./ls
+./minishell
+env
+export
+env
+export truc
+env
+export truc=
+env
+export truc=bonjour
+env
+export truc2=bonjour
+export truc3=bonjour
+env
+env
+unset truc
+env
+unset truc
+env
+unset PAGER
+env
+env
+export truc2=bonjour
+env
+ls
+ls -la
+ls -la nique ta mere
+cd
+mkdir pute
+rm pute
+rm -rf pute
+cd ..
+cd ..
+cd ..
+ls
+cd ubuntu/Desktop/minishell/
+ls
+cd bite
+cat
+cat
+cat

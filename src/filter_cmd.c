@@ -77,7 +77,7 @@ void	exec_cmd(char *cmd_path, t_data *data)
 	else if (pid == 0)
 	{
 		execve(cmd_path, data->ms_cmd->content, NULL);
-		printf("HERE\n");
+		return (ms_error("Error while executing command."));
 	}
 	else
 		waitpid(pid, &data->exit_status, 0);
