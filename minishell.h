@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 14:29:00 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/02 16:57:58 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/03 17:31:09 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <signal.h>
 # include <dirent.h>
 # include <string.h>
+# include <sys/wait.h>
 
 # define CYAN "\001\x1b[36m\002"
 # define MAGENTA "\001\x1b[35m\002"
@@ -52,16 +53,18 @@ typedef struct ms_data_s
 	t_ms_cmd		*ms_cmd;
 	char			*prompt;
 	char			*input;
+	int				exit_status;
 }				t_data;
 
 // main.c
 void		ms_prepare(t_data *data, char **env);
 void		do_minishell(t_data *data);
 int			main(int argc, char **argv, char **env);
-// liftoff.c
-void		liftoff(t_data *data);
+// filter_cmd.c
+void		filter_cmd(t_data *data);
 char		*find_cmd(char *cmd_name, t_data *data);
 void		exec_builtin(char *cmd_name, char **cmd_line, t_data *data);
+void		exec_cmd(char *cmd_path, t_data *data);
 // unsupp_char.c
 int			ms_unsupported_char(char *input);
 int			ms_unsupported_char2(char *input, int i);

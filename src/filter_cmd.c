@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   liftoff.c                                          :+:      :+:    :+:   */
+/*   filter_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 13:24:26 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/02 17:07:44 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/03 15:05:42 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	liftoff(t_data *data)
+void	filter_cmd(t_data *data)
 {
 	char	*cmd_path;
 
@@ -23,13 +23,10 @@ void	liftoff(t_data *data)
 	}
 	cmd_path = find_cmd(data->ms_cmd->content[0], data);
 	if (!cmd_path)
-	{
-		ms_error("Command not found.");
-		return ;
-	}
+		return(ms_error("Command not found."));
 	else
 	{
-		printf("cmd_path: %s\n", cmd_path);
+		exec_cmd(cmd_path, data);
 		free(cmd_path);
 	}
 }
@@ -70,3 +67,18 @@ void	exec_builtin(char *cmd_name, char **cmd_line, t_data *data)
 		builtin_unset(&data->exports, cmd_line + 1);
 }
 
+void	exec_cmd(char *cmd_path, t_data *data)
+{
+	pid_t pid;
+
+	pid = fork();
+	if (pid == -1)
+		return (ms_error("Could not create child process."));
+	else if (pid == 0)
+	{
+		execve(cmd_path, data->ms_cmd->content, NULL);
+		printf("HERE\n");
+	}
+	else
+		waitpid(pid, &data->exit_status, 0);
+}

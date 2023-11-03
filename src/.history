@@ -1,82 +1,32 @@
+exho truc
+echo truc
+ls
+ls
+ls
+ls
+ls
 truc
-env
-env
-export truc
-env
-export truc=machin
-env
-unset truc
-env
-export truc
-env
-export truc truc truc
-env
-export truc=mahcin
-env
-export truc2=mahcin
-env
-export truc3=mahcin
-env
-export truc=machin
-env
-clear
-export truc
-export truc=machin
-export truc2=machin
-export truc3=machin
-env
-export truc=mach
-env
-unset truc
-env
-unset truc
-export truc
-export truc=machin
-export truc2=machin
-env
-unset
-env
-unset truc
-env
-env
-export truc=machin
-env
-export truc2=machin
-export truc3=machin
-env
-unset truc
-env
-export truc=machin
-export truc2=machin
-export truc3=machin
-env
-unset truc
-env
-env
-export truc=machin
-export truc2=machin
-export truc3=machin
-env
-unset truc
-env
-unset truc3
-env
-unset truc4
-env
-unset truc2
-env
-echo
-exho bonjour
+truc
+ls
+mahcin
+machin
+ls
+rm
+yes
+truc
+echo truc
+echo -n truc
+ls
+ls
+cd ..
+ls
+cd minishell/
+cat
+cat
 echo bonjour
-echo -n bonjour
-echo -n bonjour        nique ta maman
-echo "bonjour        nique" ta maman
-env
-export truc=machin
-export truc2=machin
-export truc3=machin
-env
-unset truc
-env
-unset truc3
-env
+pwd
+cd 
+cd ..
+cd minishell/
+ls
+ls -la

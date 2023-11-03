@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 10:41:29 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/02 17:02:58 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/03 17:29:13 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,27 @@
 
 void	ms_prepare(t_data *data, char **env)
 {
+	int		i;
+	char	*temp;
+
 	data->ms_envv = NULL;
 	data->exports = NULL;
 	data->ms_cmd = NULL;
 	data->ms_paths = NULL;
 	data->input = NULL;
 	data->prompt = NULL;
+	data->exit_status = 0;
 	copy_env(&data->ms_envv, env);
 	data->ms_paths = ft_split_unquoted(getenv("PATH"), ':');
+	i = -1;
+	while (data->ms_paths[++i])
+	{
+		temp = ft_strdup(data->ms_paths[i]);
+		free(data->ms_paths[i]);
+		data->ms_paths[i] = ft_strjoin(temp, "/");
+		free(temp);
+		temp = NULL;
+	}
 	init_ms_history();
 	rl_catch_signals = 0;
 }
@@ -31,7 +44,7 @@ void	do_minishell(t_data *data)
 	expand_input(data);
 	sanitize_input(data);
 	split_on_pipe(data);
-	liftoff(data);
+	filter_cmd(data);
 	free_cmd(data);
 	free(data->input);
 }
