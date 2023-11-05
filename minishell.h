@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 14:29:00 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/04 20:10:40 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/05 16:17:16 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int			ft_split_unquoted_nope(char **tab, int size);
 // split_on_pipe.c
 void		split_on_pipe(t_data *data);
 void		free_cmd(t_data *data);
+void		remove_quoting(char **tab);
 // expand_input.c
 char		*get_var_value(t_ms_list *ms_envv,
 				t_ms_list *exports, char *var_name);

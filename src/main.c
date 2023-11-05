@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 10:41:29 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/05 11:56:58 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/05 16:22:42 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	do_minishell(t_data *data)
 	runner = data->ms_cmd;
 	while (runner)
 	{
-		extract_redir();
 		filter_cmd(runner, data);
 		runner = runner->next;
 	}

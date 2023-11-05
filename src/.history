@@ -123,3 +123,55 @@ eit
 ./minishell
 ./minishell
 ./minishell
+echo bonjour | echo bonsoir
+echo bonjour | echo "bonsoir"
+bonjour
+echo bonjour
+echo "bonjour"
+echo "bonjour bonjour"
+echo "bonjour bonjour" "bonjour"
+bonjour
+echo "bonjour"
+bonjour
+bonjour "toi"
+truc "mahcin"
+truc "machin"
+machin "truc"
+truc "mahcin"
+truc "machin"
+truc "machin"
+truc "sdfasdf"
+truc "truc"
+truc "machin"
+truc "dsfgdfas"
+truc "dfasdf"
+truc "machin"
+truc "machin"
+truc "machin"
+truc "machin"
+truc "machin"
+AA "BB"
+AA "BB"
+AA "BB"
+AA "BB"
+AA "BB"
+exit'
+exit'
+AA "BB"
+bou "ba"
+bou "ba"
+bou '"ba'
+bou "ba"
+bou "ba"
+bou "ba'"
+bou "\"ba"
+bou "\ba"
+;
+\\
+\
+bou "\"ba"
+bonjour "bonjour"
+bonjour "hello"
+bonjour "hello" "wesh'"
+bonjour "hello" 'wesh"'
+bonjour "hello""you"
