@@ -175,3 +175,64 @@ bonjour "hello"
 bonjour "hello" "wesh'"
 bonjour "hello" 'wesh"'
 bonjour "hello""you"
+echo bonjour
+echo bonjour
+echo "bonjour"
+echo "bonjour'"
+echo bonjour'
+echo "bonjour""bonjour"
+clear
+clear
+clear
+echo bonjour
+echo bonjour | echo bonsoir
+echo "bonjour"
+echo "bonjour    au revoir"
+echo "bonjour    '''''''au revoir"
+echo "bonjour    ""au revoir"
+echo "bonjour    "au revoir"
+echo "bonjour" | echo "$USER"
+echo "bonjour" | echo '$USER'
+echo "bonjour" | ls
+ls
+mahcin | ls
+echo "bonjour" | ls
+"mahcin" | ls
+echo | ls
+echo bonjour | ls
+clear
+make
+make all clean -s
+make fclean
+echo
+./minishell
+echo $SHLVL
+echo $SHLVL
+exit]
+clear
+./minishell
+env
+clear
+echo $SHLVL
+./minishell
+echo $SHLVL
+./minishell
+./minishell
+./minishell
+./minishell
+./minishell
+./minishell
+./minishell
+./minishell
+./minishell
+./minishell
+./minishell
+./minishell
+./minishell
+./minishell
+./minishell
+./minishell
+./minishell
+./minishell
+./minishell
+./minishell
