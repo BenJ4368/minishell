@@ -83,3 +83,43 @@ cd bite
 cat
 cat
 cat
+bonjour
+/bin/ls
+ls
+./
+./truc
+./
+ls
+ls -la
+echo bonjour
+./truc
+ls
+/bin/env
+env
+.
+./
+echo bonjour
+echo $USER
+echo $user
+echo $TERM
+cat
+./minishell
+exi
+./minishell
+echo bonjour
+/bin/ls
+/bin/ls
+/src/../minishell
+/src/../minishell
+ls > con
+ls < con
+clear
+echo truc
+echoo machin | echo truc
+echo machin | echo truc
+./minishell
+./minishell
+eit
+./minishell
+./minishell
+./minishell

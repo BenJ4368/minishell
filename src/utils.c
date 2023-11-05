@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:37:11 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/04 00:53:50 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/04 18:30:31 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,11 @@ void	copy_env(t_ms_list **ms_envv, char **env)
 		ms_list_add_back(ms_envv, env[i]);
 }
 
-void	free_exports(t_data *data)
+void	free_ms(t_data *data)
 {
 	t_ms_list	*current;
 	t_ms_list	*next;
+	int			i;
 
 	current = data->exports;
 	while (current)
@@ -40,4 +41,8 @@ void	free_exports(t_data *data)
 		current = next;
 		data->exports = NULL;
 	}
+	i = -1;
+	while (data->tab_envv[++i])
+		free(data->tab_envv[i]);
+	free(data->tab_envv);
 }

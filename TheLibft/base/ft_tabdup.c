@@ -6,12 +6,18 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 15:07:55 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/01 13:38:28 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/04 16:00:14 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * Dynamically allocate a copy of given array (char **).
+ * 
+ * @param src Array to duplicate.
+ * @return A pointer to the newly allocated array (char **).
+ */
 char	**ft_tabdup(const char **src)
 {
 	char	**dest;

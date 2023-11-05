@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 10:41:29 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/04 00:46:30 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/05 11:56:58 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	ms_prepare(t_data *data, char **env)
 	data->prompt = NULL;
 	data->exit_status = 0;
 	copy_env(&data->ms_envv, env);
+	data->tab_envv = list_to_tab(data->ms_envv);
 	data->ms_paths = ft_split_unquoted(getenv("PATH"), ':');
 	i = -1;
 	while (data->ms_paths[++i])
@@ -41,10 +42,18 @@ void	ms_prepare(t_data *data, char **env)
 
 void	do_minishell(t_data *data)
 {
+	t_ms_cmd	*runner;
+
 	expand_input(data);
 	sanitize_input(data);
 	split_on_pipe(data);
-	filter_cmd(data);
+	runner = data->ms_cmd;
+	while (runner)
+	{
+		extract_redir();
+		filter_cmd(runner, data);
+		runner = runner->next;
+	}
 	free_cmd(data);
 	free(data->input);
 }
@@ -64,7 +73,7 @@ int	main(int argc, char **argv, char **env)
 		data.input = readline(data.prompt);
 		free(data.prompt);
 		if (data.input && !ft_strncmp(data.input, "exit\0", 5))
-			return (free_exports(&data), exit(0), 0);
+			return (free_ms(&data), exit(0), 0);
 		if (data.input && ft_strlen(data.input) >= 1)
 		{
 			ms_history(data.input);

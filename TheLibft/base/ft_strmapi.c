@@ -6,12 +6,23 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 16:20:26 by bgaertne          #+#    #+#             */
-/*   Updated: 2022/11/12 12:15:36 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/30 16:31:32 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * Applies a function `f` to each character of a given string, returning
+ * a new string with the modified characters.
+ * 
+ * @param s A pointer to a constant character string
+ * @param f A function pointer that takes two arguments: an `unsigned int`
+ * representing the index of the character in the string, and a `char` representing the character
+ * itself. The function pointed to by `f` should return a `char`.
+ * 
+ * @return A pointer to a newly allocated string.
+ */
 char	*ft_strmapi(const char *s, char (*f)(unsigned int, char))
 {
 	char	*str;

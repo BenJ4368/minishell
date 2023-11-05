@@ -6,12 +6,20 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 14:21:26 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/02/16 13:54:31 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/30 16:23:15 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * Searches for a specific character in a string and returns a pointer to the
+ * first occurrence of that character.
+ * 
+ * @param str A pointer to the string in which to search for the character.
+ * @param c Character to look for.
+ * @return A pointer to the first occurrence of the character in the string. NULL if not found
+ */
 char	*ft_strchr(const char *str, int c)
 {
 	size_t	i;
@@ -28,6 +36,13 @@ char	*ft_strchr(const char *str, int c)
 	return (NULL);
 }
 
+/**
+ * Used by get_next_line. Searches for a specific character in a string.
+ * 
+ * @param str A pointer to the string in which to search for the character.
+ * @param c Character to look for.
+ * @return 1 if found, 0 otherwise.
+ */
 int	gnl_ft_strchr(const char *str, int c)
 {
 	size_t	i;

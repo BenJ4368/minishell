@@ -6,12 +6,21 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 14:06:42 by bgaertne          #+#    #+#             */
-/*   Updated: 2022/11/06 13:32:57 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/30 16:29:52 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * Copies a string from `src` to `dest` with a maximum size of `size`
+ * @param dest A pointer to the destination string where the copied string will be stored.
+ * @param src The source string to copy into the destination string.
+ * @param size Size of the destination buffer, which is the maximum number
+ * of characters that can be copied into the destination string (including the null terminator).
+ * 
+ * @return The length of the source string.
+ */
 size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 {
 	size_t	i;

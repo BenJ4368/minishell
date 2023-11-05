@@ -6,12 +6,22 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 15:14:09 by bgaertne          #+#    #+#             */
-/*   Updated: 2022/11/25 12:05:36 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/30 16:07:19 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * Compares `n` bytes of two blocks of memory.
+ * 
+ * @param s1 A pointer to the first block of memory to be compared.
+ * @param s2 A pointer to the memory block that we want to compare with `s1`.
+ * @param n Number of bytes to compare.
+ * 
+ * @return The difference between the first differing byte in the two memory areas. 0 if all
+ * bytes are equal.
+ */
 int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
 	size_t	i;

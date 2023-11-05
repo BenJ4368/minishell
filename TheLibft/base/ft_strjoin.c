@@ -6,12 +6,20 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 08:52:19 by bgaertne          #+#    #+#             */
-/*   Updated: 2022/11/30 16:56:15 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/30 16:27:29 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * Concatenates two strings and returns a new string that contains the
+ * combined contents of the input strings.
+ * 
+ * @param s1 A pointer to a constant character string. Head of the concatenation.
+ * @param s2 A pointer to a constant character string. Tail of the concatenation.
+ * @return Spointer to a newly allocated string.
+ */
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*str;

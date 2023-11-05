@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 14:29:00 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/03 17:31:09 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/04 20:10:40 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct ms_data_s
 {
 	char			**ms_paths;
 	t_ms_list		*ms_envv;
+	char			**tab_envv;
 	t_ms_list		*exports;
 	t_ms_cmd		*ms_cmd;
 	char			*prompt;
@@ -61,7 +62,7 @@ void		ms_prepare(t_data *data, char **env);
 void		do_minishell(t_data *data);
 int			main(int argc, char **argv, char **env);
 // filter_cmd.c
-void		filter_cmd(t_data *data);
+void		filter_cmd(t_ms_cmd *cmd, t_data *data);
 char		*find_cmd(char *cmd_name, t_data *data);
 void		exec_builtin(char *cmd_name, char **cmd_line, t_data *data);
 void		exec_cmd(char *cmd_path, t_data *data);
@@ -93,10 +94,10 @@ void		builtin_pwd(void);
 void		builtin_cd(char *path);
 void		builtin_echo(char **args);
 // builtin_2.c
-void		check_then_delete_var(t_ms_list **ms_envv, char *var);
 void		builtin_export(t_ms_list **ms_envv, char **vars);
 void		builtin_unset(t_ms_list **ms_envv, char **vars);
 int			is_builtin(char *cmd_name);
+void		check_then_delete_var(t_ms_list **ms_envv, char *var);
 // history.c
 int			init_ms_history(void);
 int			ms_history(char *input);
@@ -117,9 +118,10 @@ void		ms_list_add_back(t_ms_list **list, char *cmd);
 t_ms_list	*get_last_node_list(t_ms_list *list);
 void		ms_cmd_add_back(t_ms_cmd **list, char **content);
 t_ms_cmd	*get_last_node_cmd(t_ms_cmd *list);
+char		**list_to_tab(t_ms_list *envv);
 // utils.c
 void		ms_error(char *msg);
 void		copy_env(t_ms_list **ms_envv, char **env);
-void		free_exports(t_data *data);
+void		free_ms(t_data *data);
 
 #endif

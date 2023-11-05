@@ -12,23 +12,21 @@
 
 #include "../minishell.h"
 
-void	filter_cmd(t_data *data)
+void	filter_cmd(t_ms_cmd *cmd, t_data *data)
 {
 	char	*cmd_path;
 
-	if (is_builtin(data->ms_cmd->content[0]))
-	{
-		exec_builtin(data->ms_cmd->content[0], data->ms_cmd->content, data);
-		return ;
-	}
-	cmd_path = find_cmd(data->ms_cmd->content[0], data);
+	if (is_builtin(cmd->content[0]))
+		return (exec_builtin(cmd->content[0],
+			cmd->content, data));
+	if (ft_strncmp(cmd->content[0], "./", 2) == 0
+		|| ft_strncmp(cmd->content[0], "/", 1) == 0)
+		return (exec_cmd(cmd->content[0], data));
+	cmd_path = find_cmd(cmd->content[0], data);
 	if (!cmd_path)
 		return(ms_error("Command not found."));
 	else
-	{
-		exec_cmd(cmd_path, data);
-		free(cmd_path);
-	}
+		return (exec_cmd(cmd_path, data), free(cmd_path));
 }
 
 char	*find_cmd(char *cmd_name, t_data *data)
@@ -76,7 +74,7 @@ void	exec_cmd(char *cmd_path, t_data *data)
 		return (ms_error("Could not create child process."));
 	else if (pid == 0)
 	{
-		execve(cmd_path, data->ms_cmd->content, NULL);
+		execve(cmd_path, data->ms_cmd->content, data->tab_envv);
 		return (ms_error("Error while executing command."));
 	}
 	else

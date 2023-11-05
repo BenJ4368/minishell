@@ -6,12 +6,24 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 16:18:08 by bgaertne          #+#    #+#             */
-/*   Updated: 2022/11/02 16:18:08 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/30 16:08:28 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * Copies a specified number of bytes from the source memory location to the
+ * destination memory location.
+ * 
+ * @param dest A pointer to the destination memory where the copied data will
+ * be stored.
+ * @param src A pointer to the source memory location from where the data will
+ * be copied.
+ * @param n Number of bytes to be copied.
+ * 
+ * @return A pointer to the destination memory block.
+ */
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
 	size_t	i;

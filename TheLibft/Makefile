@@ -6,7 +6,7 @@
 #    By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/04 11:05:41 by bgaertne          #+#    #+#              #
-#    Updated: 2023/11/01 13:24:27 by bgaertne         ###   ########.fr        #
+#    Updated: 2023/11/04 16:05:24 by bgaertne         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,8 +31,7 @@ BASE_SRC =	ft_atoi ft_atol ft_bzero ft_calloc ft_isalnum ft_isalpha \
 			ft_strchr ft_strdup ft_striteri ft_strjoin ft_strlcat \
 			ft_strlcpy ft_strlen ft_strmapi ft_strncmp ft_strnstr \
 			ft_strrchr ft_strtrim ft_substr ft_tolower ft_toupper \
-			ft_lstnew ft_lstadd_front ft_lstsize ft_lstlast ft_lstadd_back \
-			ft_lstdelone ft_lstclear ft_lstiter ft_lstmap ft_tabdup
+			ft_tabdup \
 
 FTPRINTF_SRC =	ft_printf \
 				ft_analyze_format \

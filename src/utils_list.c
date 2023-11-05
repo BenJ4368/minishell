@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 18:14:51 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/02 15:28:31 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/04 18:28:57 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,28 @@ void	ms_cmd_add_back(t_ms_cmd **list, char **content)
 		last_node->next = new_node;
 		new_node->prev = last_node;
 	}
+}
+
+char	**list_to_tab(t_ms_list *ms_envv)
+{
+	char		**tab_envv;
+	t_ms_list	*runner;
+	int			i;
+
+	i = 0;
+	runner = ms_envv;
+	while (runner)
+	{
+		runner = runner->next;
+		i++;
+	}
+	tab_envv =  ft_calloc(sizeof(char *), i + 1);
+	runner = ms_envv;
+	i = -1;
+	while (runner)
+	{
+		tab_envv[++i] = ft_strdup(runner->content);
+		runner = runner->next;
+	}
+	return (tab_envv);
 }

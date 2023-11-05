@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 15:32:44 by bgaertne          #+#    #+#             */
-/*   Updated: 2022/11/16 15:25:44 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/30 16:38:19 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,14 @@ int	ft_getendoffset(const char *set, const char *s1)
 	return (length - i);
 }
 
+/**
+ * Trims leading and trailing characters from a string based on a given set
+ * of characters.
+ * 
+ * @param s1 A pointer to a stringto trim.
+ * @param set String to removefrom the beginning and end of the `s1` string.
+ * @return A pointer to a newly allocated string that is a trimmed version of the input string `s1`.
+ */
 char	*ft_strtrim(char const *s1, char const *set)
 {
 	char	*str;

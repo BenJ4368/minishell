@@ -1,24 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/15 14:41:07 by bgaertne          #+#    #+#             */
-/*   Updated: 2022/11/16 15:15:17 by bgaertne         ###   ########.fr       */
+/*   Created: 2023/11/04 19:53:06 by bgaertne          #+#    #+#             */
+/*   Updated: 2023/11/04 20:07:28 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void	ft_lstdelone(t_list *lst, void (*del)(void*))
+#include "../minishell.h"
+/*
+int	extract_redir(t_ms_cmd *cmd, t_data *data)
 {
-	if (!del)
-		return ;
-	if (lst)
-	{
-		del(lst->content);
-		free(lst);
-	}
-}
+	
+
+}*/

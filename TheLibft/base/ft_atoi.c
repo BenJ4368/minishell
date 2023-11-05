@@ -6,40 +6,36 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 14:36:00 by bgaertne          #+#    #+#             */
-/*   Updated: 2022/11/06 14:36:00 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/30 15:48:11 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isspace(char c)
-{
-	if (c == ' '
-		|| c == '\f'
-		|| c == '\n'
-		|| c == '\r'
-		|| c == '\t'
-		|| c == '\v')
-		return (1);
-	else
-		return (0);
-}
-
+/**
+ * Converts a string into an integer.
+ * 
+ * @param str String to convert
+ * @return an integer value.
+ */
 int	ft_atoi(const char *str)
 {
-	size_t	i;
+	int	i;
 	int		sign;
 	int		myint;
 
 	i = 0;
 	sign = 1;
 	myint = 0;
-	while (ft_isspace(str[i]))
+	while (str[i] && (str[i] == ' ' || str[i] == '\t'
+			|| str[i] == '\n' || str[i] == '\r'
+			|| str[i] == '\v' || str[i] == '\f'))
 		i++;
-	if (str[i] == '-' || str[i] == '+')
+	if (str[i] == '+')
+		i++;
+	else if (str[i] == '-')
 	{
-		if (str[i] == '-')
-			sign = -sign;
+		sign *= -1;
 		i++;
 	}
 	while (str[i] >= '0' && str[i] <= '9')

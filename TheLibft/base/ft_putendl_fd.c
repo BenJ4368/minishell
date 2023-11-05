@@ -6,12 +6,19 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 12:44:52 by bgaertne          #+#    #+#             */
-/*   Updated: 2022/11/30 16:59:35 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/10/30 16:12:22 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * Writes a string followed by a newline to a specified file
+ * descriptor.
+ * 
+ * @param s Pointer to the string to be written.
+ * @param fd File descriptor.
+ */
 void	ft_putendl_fd(char *s, int fd)
 {
 	size_t	i;
