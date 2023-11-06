@@ -236,3 +236,24 @@ echo $SHLVL
 ./minishell
 ./minishell
 ./minishell
+./minishell
+./minishell
+./minishell
+echo $SHLVL
+echo $SHLVL
+echo $SHLVL
+echo $SHLVL
+echo $SHLVL
+echo $SHLVL
+echo $SHLVL
+./minishell
+./minishell
+./minishell
+echo $SHLVL
+echo $SHLVL
+echo $SHLVL
+echo $SHLVL
+echo $SHLVL
+./minishell
+echo $SHLVL
+clear

@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 10:41:29 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/05 16:22:42 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/06 14:54:45 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,9 @@ void	do_minishell(t_data *data)
 	runner = data->ms_cmd;
 	while (runner)
 	{
+		if (runner->next)
+			redir_pipe(data);
+		extract_redir();
 		filter_cmd(runner, data);
 		runner = runner->next;
 	}
@@ -72,7 +75,7 @@ int	main(int argc, char **argv, char **env)
 		data.input = readline(data.prompt);
 		free(data.prompt);
 		if (data.input && !ft_strncmp(data.input, "exit\0", 5))
-			return (free_ms(&data), exit(0), 0);
+			return (free_ms(&data, NULL, NULL), exit(0), 0);
 		if (data.input && ft_strlen(data.input) >= 1)
 		{
 			ms_history(data.input);

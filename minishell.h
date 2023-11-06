@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 14:29:00 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/05 19:05:12 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/06 13:12:13 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ typedef struct ms_data_s
 	t_ms_cmd		*ms_cmd;
 	char			*prompt;
 	char			*input;
+	int				fd_in;
+	int				fd_out;
 	int				exit_status;
 }				t_data;
 
@@ -122,7 +124,7 @@ char		**list_to_tab(t_ms_list *envv);
 // utils.c
 void		ms_error(char *msg);
 void		copy_env(t_ms_list **ms_envv, char **env);
-void		free_ms(t_data *data);
+void		free_ms(t_data *data, t_ms_list	*current, t_ms_list	*next);
 void		free_cmd(t_data *data);
 
 #endif

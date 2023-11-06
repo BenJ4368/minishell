@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   filter_cmd.c                                          :+:      :+:    :+:   */
+/*   filter_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/02 13:24:26 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/03 15:05:42 by bgaertne         ###   ########.fr       */
+/*   Created: 2023/11/06 12:53:42 by bgaertne          #+#    #+#             */
+/*   Updated: 2023/11/06 13:00:55 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ void	filter_cmd(t_ms_cmd *cmd, t_data *data)
 
 	if (is_builtin(cmd->content[0]))
 		return (exec_builtin(cmd->content[0],
-			cmd->content, data));
+				cmd->content, data));
 	if (ft_strncmp(cmd->content[0], "./", 2) == 0
 		|| ft_strncmp(cmd->content[0], "/", 1) == 0)
 		return (exec_cmd(cmd->content[0], data));
 	cmd_path = find_cmd(cmd->content[0], data);
 	if (!cmd_path)
-		return(ms_error("Command not found."));
+		return (ms_error("Command not found."));
 	else
 		return (exec_cmd(cmd_path, data), free(cmd_path));
 }
@@ -67,7 +67,7 @@ void	exec_builtin(char *cmd_name, char **cmd_line, t_data *data)
 
 void	exec_cmd(char *cmd_path, t_data *data)
 {
-	pid_t pid;
+	pid_t	pid;
 
 	pid = fork();
 	if (pid == -1)
