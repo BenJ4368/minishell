@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:18:22 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/02 16:02:15 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/06 19:08:55 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ void	builtin_pwd(void)
 	write(1, "\n", 1);
 }
 
-void	builtin_cd(char *path)
+void	builtin_cd(char *path, int ms_fd)
 {
 	if (chdir(path) == -1)
-		ms_error("not a directory.");
+		ms_error("not a directory.", ms_fd);
 }
 
 void	builtin_echo(char **args)

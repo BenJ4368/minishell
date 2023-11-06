@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 10:41:29 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/06 14:54:45 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/06 19:21:13 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	ms_prepare(t_data *data, char **env)
 	data->ms_paths = NULL;
 	data->input = NULL;
 	data->prompt = NULL;
+	data->ms_fd = dup(STDOUT_FILENO);
 	data->exit_status = 0;
 	copy_env(&data->ms_envv, env);
 	data->tab_envv = list_to_tab(data->ms_envv);
@@ -36,7 +37,7 @@ void	ms_prepare(t_data *data, char **env)
 		free(temp);
 		temp = NULL;
 	}
-	init_ms_history();
+	init_ms_history(data->ms_fd);
 	rl_catch_signals = 0;
 }
 
@@ -48,14 +49,18 @@ void	do_minishell(t_data *data)
 	sanitize_input(data);
 	split_on_pipe(data);
 	runner = data->ms_cmd;
+	int c = 0;
 	while (runner)
 	{
-		if (runner->next)
-			redir_pipe(data);
-		extract_redir();
-		filter_cmd(runner, data);
+		c++;
+		int i = -1;
+		while (runner->content[++i])
+			printf("cmd n=%i, content[%i] = %s\n", c, i, runner->content[i]);
+		printf("\n");
 		runner = runner->next;
 	}
+	printf("execution:\n");
+	exec_cmd(data->ms_cmd, data, STDIN_FILENO);
 	free_cmd(data);
 	free(data->input);
 }
@@ -78,17 +83,9 @@ int	main(int argc, char **argv, char **env)
 			return (free_ms(&data, NULL, NULL), exit(0), 0);
 		if (data.input && ft_strlen(data.input) >= 1)
 		{
-			ms_history(data.input);
-			if (!check_input(data.input))
+			ms_history(data.input, data.ms_fd);
+			if (!check_input(data.input, data.ms_fd))
 				do_minishell(&data);
 		}
 	}
 }
-
-
-/* TO DO LIST
-
-enlever les quotes* avant de les utiliser dans les fonctions
-(*uniquement les quotes qui sont pas dans des quotes hein)
-
-*/

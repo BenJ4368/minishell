@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 14:29:00 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/06 13:12:13 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/06 19:19:39 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,7 @@ typedef struct ms_data_s
 	t_ms_cmd		*ms_cmd;
 	char			*prompt;
 	char			*input;
-	int				fd_in;
-	int				fd_out;
+	int				ms_fd;
 	int				exit_status;
 }				t_data;
 
@@ -63,15 +62,15 @@ typedef struct ms_data_s
 void		ms_prepare(t_data *data, char **env);
 void		do_minishell(t_data *data);
 int			main(int argc, char **argv, char **env);
-// filter_cmd.c
+// exec_cmd.c
 void		filter_cmd(t_ms_cmd *cmd, t_data *data);
 char		*find_cmd(char *cmd_name, t_data *data);
 void		exec_builtin(char *cmd_name, char **cmd_line, t_data *data);
-void		exec_cmd(char *cmd_path, t_data *data);
+void		exec_cmd(t_ms_cmd *cmd, t_data *data, int input_fd);
 // unsupp_char.c
-int			ms_unsupported_char(char *input);
-int			ms_unsupported_char2(char *input, int i);
-int			ms_unsupported_char3(char *input, int i);
+int			ms_unsupported_char(char *input, int ms_fd);
+int			ms_unsupported_char2(char *input, int i, int ms_fd);
+int			ms_unsupported_char3(char *input, int i, int ms_fd);
 // ft_split_unquoted.c
 char		**ft_split_unquoted(char const *s, char c);
 int			ft_split_unquoted_count_words(char const *s, char c);
@@ -93,22 +92,22 @@ int			is_white_space(char c);
 // builtins_1.c
 void		builtin_env(t_ms_list *ms_envv, t_ms_list *exports);
 void		builtin_pwd(void);
-void		builtin_cd(char *path);
+void		builtin_cd(char *path, int ms_fd);
 void		builtin_echo(char **args);
 // builtin_2.c
-void		builtin_export(t_ms_list **ms_envv, char **vars);
+void		builtin_export(t_ms_list **ms_envv, char **vars, int ms_fd);
 void		builtin_unset(t_ms_list **ms_envv, char **vars);
 int			is_builtin(char *cmd_name);
 void		check_then_delete_var(t_ms_list **ms_envv, char *var);
 // history.c
-int			init_ms_history(void);
-int			ms_history(char *input);
+int			init_ms_history(int ms_fd);
+int			ms_history(char *input, int ms_fd);
 // check_input.c
-int			check_input(char *input);
-int			check_unclosed_quotes(char *input, int i);
+int			check_input(char *input, int ms_fd);
+int			check_unclosed_quotes(char *input, int i, int ms_fd);
 int			check_in_quotes(const char *str, int x, int i, int quotes);
 int			check_forbidden_char(char *input, char *excludes);
-int			check_export(char *input);
+int			check_export(char *input, int ms_fd);
 // prompt.c
 void		prompt_builder(char **prompt, char *usr, char *cwd, int length);
 void		prompt(t_data *data);
@@ -122,7 +121,7 @@ void		ms_cmd_add_back(t_ms_cmd **list, char **content);
 t_ms_cmd	*get_last_node_cmd(t_ms_cmd *list);
 char		**list_to_tab(t_ms_list *envv);
 // utils.c
-void		ms_error(char *msg);
+void		ms_error(char *msg, int ms_fd);
 void		copy_env(t_ms_list **ms_envv, char **env);
 void		free_ms(t_data *data, t_ms_list	*current, t_ms_list	*next);
 void		free_cmd(t_data *data);

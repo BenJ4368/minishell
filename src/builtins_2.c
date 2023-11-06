@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 18:05:25 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/02 17:12:33 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/06 19:15:40 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ void	check_then_delete_var(t_ms_list **ms_exports, char *var)
 	}
 }
 
-void	builtin_export(t_ms_list **ms_exports, char **vars)
+void	builtin_export(t_ms_list **ms_exports, char **vars, int ms_fd)
 {
 	int	i;
 
 	i = -1;
 	while (vars[++i])
 	{
-		if (check_export(vars[i]))
+		if (check_export(vars[i], ms_fd))
 		{
 			check_then_delete_var(ms_exports, vars[i]);
 			ms_list_add_back(ms_exports, ft_strdup(vars[i]));

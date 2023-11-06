@@ -6,23 +6,23 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 09:46:11 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/06 11:24:41 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/06 19:18:06 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	init_ms_history(void)
+int	init_ms_history(int ms_fd)
 {
 	int		fd;
 	char	*buffer;
 	char	*history_entry;
 
-	//fd = open("/home/ubuntu/Desktop/minishell/src/.history",
-	fd = open("/local-home/bgaertne/Desktop/minishell/src/.history",
+	fd = open("/home/ubuntu/Desktop/minishell/src/.history",
+	//fd = open("/local-home/bgaertne/Desktop/minishell/src/.history",
 			O_RDWR | O_CREAT, 77777);
 	if (fd == -1)
-		return (ms_error("Failed to open/create .history file."), 1);
+		return (ms_error("Failed to open/create .history file.", ms_fd), 1);
 	buffer = get_next_line(fd);
 	while (buffer != NULL)
 	{
@@ -37,15 +37,15 @@ int	init_ms_history(void)
 	return (0);
 }
 
-int	ms_history(char *input)
+int	ms_history(char *input, int ms_fd)
 {
 	int	fd;
 
-	//fd = open("/home/ubuntu/Desktop/minishell/src/.history",
-	fd = open("/local-home/bgaertne/Desktop/minishell/src/.history",
+	fd = open("/home/ubuntu/Desktop/minishell/src/.history",
+	//fd = open("/local-home/bgaertne/Desktop/minishell/src/.history",
 			O_RDWR | O_CREAT | O_APPEND, 00777);
 	if (fd == -1)
-		return (ms_error("Failed to open/create .history file."), 1);
+		return (ms_error("Failed to open/create .history file.", ms_fd), 1);
 	add_history(input);
 	write(fd, input, ft_strlen(input));
 	write(fd, "\n", 1);

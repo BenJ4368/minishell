@@ -6,15 +6,21 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:37:11 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/06 11:55:51 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/06 19:11:56 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ms_error(char *msg)
+void	ms_error(char *msg, int ms_fd)
 {
-	printf("Minishell: Error:	%s\n", msg);
+	int	i;
+
+	write(ms_fd, "Minishell: Error:	", 18);
+	i = -1;
+	while (msg[++i])
+		write(ms_fd, &msg[i], 1);
+	write(ms_fd, "\n", 1);
 }
 
 void	copy_env(t_ms_list **ms_envv, char **env)

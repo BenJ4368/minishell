@@ -6,26 +6,26 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:55:27 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/05 18:14:21 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/06 19:20:01 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	check_input(char *input)
+int	check_input(char *input, int ms_fd)
 {
 	if (input[1] == '|')
-		return (ms_error("Syntax error near unexpected token '|'"), 1);
-	if (check_unclosed_quotes(input, 0))
+		return (ms_error("Syntax error near unexpected token '|'", ms_fd), 1);
+	if (check_unclosed_quotes(input, 0, ms_fd))
 		return (1);
 	if (check_forbidden_char(input, "\\;&*"))
-		return (ms_error("Forbidden character use."), 1);
-	if (ms_unsupported_char(input))
+		return (ms_error("Forbidden character use.", ms_fd), 1);
+	if (ms_unsupported_char(input, ms_fd))
 		return (1);
 	return (0);
 }
 
-int	check_unclosed_quotes(char *input, int i)
+int	check_unclosed_quotes(char *input, int i, int ms_fd)
 {
 	while (input[i])
 	{
@@ -35,7 +35,7 @@ int	check_unclosed_quotes(char *input, int i)
 			while (input[i] && input[i] != '"')
 				i++;
 			if (!input[i])
-				return (ms_error("Unclosed double quotes."), 1);
+				return (ms_error("Unclosed double quotes.", ms_fd), 1);
 			i++;
 		}
 		else if (input[i] == '\'')
@@ -44,7 +44,7 @@ int	check_unclosed_quotes(char *input, int i)
 			while (input[i] && input[i] != '\'')
 				i++;
 			if (!input[i])
-				return (ms_error("Unclosed single quotes."), 1);
+				return (ms_error("Unclosed single quotes.", ms_fd), 1);
 			i++;
 		}
 		else
@@ -101,7 +101,7 @@ int	check_forbidden_char(char *input, char *excludes)
 	return (0);
 }
 
-int	check_export(char *input)
+int	check_export(char *input, int ms_fd)
 {
 	int	i;
 
@@ -109,7 +109,7 @@ int	check_export(char *input)
 	while (input[i])
 	{
 		if (input[0] == '=')
-			return (ms_error("export: '=': not a valid identifier"), 0);
+			return (ms_error("export: '=': not a valid identifier", ms_fd), 0);
 		if (input[i] == '=')
 			return (1);
 		i++;

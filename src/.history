@@ -257,3 +257,53 @@ echo $SHLVL
 ./minishell
 echo $SHLVL
 clear
+echo bonjour
+ls
+mahcin
+ls
+./minishell
+ls
+truc
+echo truc
+echo truc
+$SHLVL
+echo $SHLVL
+echo truc
+echo $SHLVL
+./minishell
+echo $SHLVL
+echo $SHLVL
+ls
+echo bonjour
+echo bonjour | echo bonsoir
+echo "Hello, World!" | tr '[:lower:]' '[:upper:]'
+echo bonjour | ls
+echo bonjour | wc -l
+echo bonjour | echo bonjour
+echo bonjour | echo bonsoir
+echo bonjour | echo bonsoir
+echo premier | echo deuxieme | echo dernier
+echo premier | ls
+echo | ls
+echo "bonjour" | ls
+echo "" | ls
+echo mahcin | ls
+ls | cat bonjour
+ls -1
+ls
+bonjour
+echo bonjour
+echo bonjour | echo truc
+echo bonjour | echo truc
+echo bonjour | echo bonjour
+echo bonjour | ls
+bruh
+clear
+echo bonjour | echo truc
+echo bonjour | ls
+echo bonjour | ls
+echo bonjour | echo truc
+echo bonjour | pwd
+ls bonjour
+echo "coucou toi" | echo "toi meme enculer"
+echo "coucou toi" | ls .
