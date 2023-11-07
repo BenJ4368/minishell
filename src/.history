@@ -307,3 +307,23 @@ echo bonjour | pwd
 ls bonjour
 echo "coucou toi" | echo "toi meme enculer"
 echo "coucou toi" | ls .
+echo bonjour | echo truc
+echo bonjour | ls
+ls | grep a
+ls
+ls | grep a
+ls | grep a
+ls | grep a
+ls | grep a
+ls | grep a
+ls | grep a
+ls | grep a
+ls | grep a
+ls | grep a
+ls | grep a
+ls | grep a
+ls | grep a
+ls | grep a
+clear
+clear
+ls | grep a

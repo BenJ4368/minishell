@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 12:53:42 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/06 21:38:49 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/07 10:53:07 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	filter_cmd(t_ms_cmd *cmd, t_data *data)
 		|| ft_strncmp(cmd->content[0], "/", 1) == 0)
 		execve(cmd->content[0], data->ms_cmd->content, data->tab_envv);
 	cmd_path = find_cmd(cmd->content[0], data);
+	write(data->ms_fd, &cmd->content[0], ft_strlen(cmd->content[0]));
+	write(data->ms_fd, &cmd->content[1], ft_strlen(cmd->content[1]));
 	if (!cmd_path)
 		return (ms_error("Command not found.", data->ms_fd), exit(EXIT_FAILURE));
 	else
@@ -65,14 +67,25 @@ void	exec_builtin(char *cmd_name, char **cmd_line, t_data *data)
 		builtin_unset(&data->exports, cmd_line + 1);
 }
 
-void exec_cmd(t_ms_cmd *cmd, t_data *data, int input_fd)
+void	exec_cmd(t_ms_cmd *cmd, t_data *data, int input_fd)
 {
-	pid_t pid;
-	int pipe_fd[2];
+	pid_t	pid;
+	int		*pipe_fd;
 
+	t_ms_cmd	*runner = cmd;
+	int c = 0;
+	while (runner)
+	{
+		c++;
+		int i = -1;
+		while (runner->content[++i])
+			printf("cmd n=%i, content[%i] = %s\n", c, i, runner->content[i]);
+		printf("\n");
+		runner = runner->next;
+	}
+	pipe_fd = malloc(sizeof(int) * 2);
 	if (pipe(pipe_fd) == -1)
 		return (ms_error("Could not create pipe.", data->ms_fd), exit(EXIT_FAILURE));
-
 
 	pid = fork();
 	if (pid == -1)
@@ -104,4 +117,5 @@ void exec_cmd(t_ms_cmd *cmd, t_data *data, int input_fd)
 		}
 		waitpid(pid, &data->exit_status, 0);
 	}
+	free(pipe_fd);
 }
