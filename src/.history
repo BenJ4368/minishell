@@ -1,2 +1,48 @@
 ls | grep a
 ls | grep a
+ls | grep a
+ls | grep a
+ls | grep a
+ls | grep a
+ls | grep a
+ls
+ls --help
+clear
+ls | grep
+ls | grep a
+ls | grep "a"
+echo bonjour | ls
+echo bonjour | ls
+echo bonjour | ls
+echo bonjour | ls
+echo bonjour | ls
+echo bonjour | ls
+export USER=ntm
+env
+clear
+echo bonjour | ls
+echo bonjour
+ls bonjour
+echo caca
+echo caca | grep e
+echo caca | grep a
+clear
+echo bonjour | ls
+echo | grep a
+echo
+echo -n
+clear
+echo -n
+echo -n | grep a
+grep a
+clear
+echo --help
+grep --help
+clear
+ls bonjour
+echo bonjour |ls
+cd
+cd | echo bonjour | ls
+cd | echo bonjour | ls | grep m
+cd | echo bonjour | ls | grep m | wc -l
+clear
