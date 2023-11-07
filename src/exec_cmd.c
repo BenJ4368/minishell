@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 12:53:42 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/07 10:53:07 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/07 15:19:19 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,20 @@ void	filter_cmd(t_ms_cmd *cmd, t_data *data)
 		|| ft_strncmp(cmd->content[0], "/", 1) == 0)
 		execve(cmd->content[0], data->ms_cmd->content, data->tab_envv);
 	cmd_path = find_cmd(cmd->content[0], data);
-	write(data->ms_fd, &cmd->content[0], ft_strlen(cmd->content[0]));
-	write(data->ms_fd, &cmd->content[1], ft_strlen(cmd->content[1]));
+	int i = -1;
+	while (cmd->content[++i])
+	{
+		int fd = open("/local-home/bgaertne/Desktop/minishell/src/.test",
+			O_RDWR | O_CREAT, 77777);
+		write(fd, &cmd->content[i], ft_strlen(cmd->content[i]));
+		write(fd, "\n", 1);
+	}
 	if (!cmd_path)
-		return (ms_error("Command not found.", data->ms_fd), exit(EXIT_FAILURE));
+		return (ms_error("Command not found.", data->ms_fd),
+			exit(EXIT_FAILURE));
 	else
-		execve(cmd_path, data->ms_cmd->content, data->tab_envv), free(cmd_path);
+		return (execve(cmd_path, data->ms_cmd->content, data->tab_envv),
+			free(cmd_path));
 }
 
 char	*find_cmd(char *cmd_name, t_data *data)
@@ -72,49 +80,42 @@ void	exec_cmd(t_ms_cmd *cmd, t_data *data, int input_fd)
 	pid_t	pid;
 	int		*pipe_fd;
 
-	t_ms_cmd	*runner = cmd;
-	int c = 0;
-	while (runner)
-	{
-		c++;
-		int i = -1;
-		while (runner->content[++i])
-			printf("cmd n=%i, content[%i] = %s\n", c, i, runner->content[i]);
-		printf("\n");
-		runner = runner->next;
-	}
 	pipe_fd = malloc(sizeof(int) * 2);
 	if (pipe(pipe_fd) == -1)
-		return (ms_error("Could not create pipe.", data->ms_fd), exit(EXIT_FAILURE));
+		return (ms_error("Could not create pipe.", data->ms_fd),
+			exit(EXIT_FAILURE));
 
+	printf("pipe_fd[0] = %i\npipe_fd[1] = %i\n", pipe_fd[0], pipe_fd[1]);
 	pid = fork();
 	if (pid == -1)
-		return (ms_error("Could not create child process.", data->ms_fd), exit(EXIT_FAILURE));
+		return (ms_error("Could not create child process.", data->ms_fd),
+			exit(EXIT_FAILURE));
 	else if (pid == 0)
 	{
 		if (input_fd != STDIN_FILENO)
 		{
 			if (dup2(input_fd, STDIN_FILENO) == -1)
-				return (ms_error("Could not duplicate fd.", data->ms_fd), exit(EXIT_FAILURE));
+				return (ms_error("Could not duplicate fd.", data->ms_fd),
+					exit(EXIT_FAILURE));
 			close(input_fd);
 		}
 		if (cmd->next != NULL)
 		{
 			if (dup2(pipe_fd[1], STDOUT_FILENO) == -1)
-				return (ms_error("Could not duplicate fd.", data->ms_fd), exit(EXIT_FAILURE));
+				return (ms_error("Could not duplicate fd.", data->ms_fd),
+					exit(EXIT_FAILURE));
+			close(pipe_fd[1]);
 		}
-		close(pipe_fd[0]);
 
 		filter_cmd(cmd, data);
 		exit(EXIT_SUCCESS);
 	}
 	else
 	{
-		close(pipe_fd[1]);
 		if (cmd->next != NULL)
-		{
 			exec_cmd(cmd->next, data, pipe_fd[0]);
-		}
+		else
+			waitpid(-1, &data->exit_status, WNOHANG);
 		waitpid(pid, &data->exit_status, 0);
 	}
 	free(pipe_fd);
