@@ -46,3 +46,40 @@ cd | echo bonjour | ls
 cd | echo bonjour | ls | grep m
 cd | echo bonjour | ls | grep m | wc -l
 clear
+cd | echo bonjour | ls | grep m | wc -l
+cat
+ls
+cd | echo bonjour | ls | grep m | wc -l
+./minishell
+cd | echo bonjour | ls | grep m | wc -l
+ls | grep m
+ls | grep m
+ls | grep m
+ls | grep m
+ls | grep m
+ls | grep m
+ls | grep m
+ls | grep m
+ls | grep m
+ls | grep m
+ls | grep m
+ls | grep m
+ls | grep m
+ls
+ls | grep m
+ls | grep m
+ls | grep m
+ls | grep m
+ls | grep m
+ls | grep m
+ls | grep m
+ls | grep m
+ls
+echo bonjour
+echo bonjour
+ls
+ls | grep m
+ls
+ls | grep m
+clear
+ls | grep m

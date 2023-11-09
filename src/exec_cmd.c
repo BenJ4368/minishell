@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 12:53:42 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/08 00:07:02 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/09 13:06:37 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,17 @@ void	filter_cmd(t_ms_cmd *cmd, t_data *data)
 	int i = -1;
 	while (cmd->content[++i])
 	{
-		write(data->ms_fd, cmd->content[i], ft_strlen(cmd->content[i]));
 		write(data->ms_fd, "\n", 1);
+		write(data->ms_fd, cmd->content[i], ft_strlen(cmd->content[i]));
+	}
+	char *temp;
+	temp = get_next_line(STDIN_FILENO);
+	while (temp)
+	{
+		write(data->ms_fd, temp, ft_strlen(temp));
+		free(temp);
+		temp = NULL;
+		temp = get_next_line(STDIN_FILENO);
 	}
 	if (is_builtin(cmd->content[0]))
 		return (exec_builtin(cmd->content[0],
@@ -29,6 +38,8 @@ void	filter_cmd(t_ms_cmd *cmd, t_data *data)
 		|| ft_strncmp(cmd->content[0], "/", 1) == 0)
 		execve(cmd->content[0], data->ms_cmd->content, data->tab_envv);
 	cmd_path = find_cmd(cmd->content[0], data);
+	write(data->ms_fd, "\n", 1);
+	write(data->ms_fd, cmd_path, ft_strlen(cmd_path));
 	if (!cmd_path)
 		return (ms_error("Command not found.", data->ms_fd),
 			exit(EXIT_FAILURE));
@@ -78,13 +89,16 @@ void	exec_cmd(t_ms_cmd *cmd, t_data *data, int input_fd)
 	pid_t	pid;
 	int		*pipe_fd;
 
-	pipe_fd = malloc(sizeof(int) * 2);
-	if (pipe(pipe_fd) == -1)
+	if (cmd->next != NULL)
 	{
-		ms_error("Could not create pipe.", data->ms_fd),
-		exit(EXIT_FAILURE);
+		pipe_fd = malloc(sizeof(int) * 2);
+		if (pipe(pipe_fd) == -1)
+		{
+			ms_error("Could not create pipe.", data->ms_fd),
+			exit(EXIT_FAILURE);
+		}
+		printf("pipe_fd[0] = %i\npipe_fd[1] = %i\n", pipe_fd[0], pipe_fd[1]);
 	}
-	printf("pipe_fd[0] = %i\npipe_fd[1] = %i\n", pipe_fd[0], pipe_fd[1]);
 	pid = fork();
 	if (pid == -1)
 	{
@@ -95,12 +109,13 @@ void	exec_cmd(t_ms_cmd *cmd, t_data *data, int input_fd)
 	{
 		if (input_fd != STDIN_FILENO)
 		{
+			if(cmd->next != NULL)
+				close(pipe_fd[0]);
 			if (dup2(input_fd, STDIN_FILENO) == -1)
 			{
 				ms_error("Could not duplicate fd.", data->ms_fd);
 				exit(EXIT_FAILURE);
 			}
-			close(input_fd);
 		}
 		if (cmd->next != NULL)
 		{
@@ -116,9 +131,10 @@ void	exec_cmd(t_ms_cmd *cmd, t_data *data, int input_fd)
 	}
 	else
 	{
-		waitpid(pid, &data->exit_status, 0);
 		if (cmd->next != NULL)
 			exec_cmd(cmd->next, data, pipe_fd[0]);
+		waitpid(pid, &data->exit_status, 0);
 	}
-	free(pipe_fd);
+	if (cmd->next != NULL)
+		free(pipe_fd);
 }
