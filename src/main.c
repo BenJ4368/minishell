@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 10:41:29 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/09 13:07:01 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/09 14:59:22 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ms_prepare(t_data *data, char **env)
 	data->ms_paths = NULL;
 	data->input = NULL;
 	data->prompt = NULL;
-	data->ms_fd = dup(STDERR_FILENO);
+	data->ms_fd = STDERR_FILENO;
 	data->exit_status = 0;
 	copy_env(&data->ms_envv, env);
 	data->tab_envv = list_to_tab(data->ms_envv);

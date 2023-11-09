@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 12:53:42 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/09 13:06:37 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/09 15:26:01 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	filter_cmd(t_ms_cmd *cmd, t_data *data)
 {
-	char	*cmd_path;
+	//char	*cmd_path;
 
 	int i = -1;
 	while (cmd->content[++i])
@@ -22,16 +22,16 @@ void	filter_cmd(t_ms_cmd *cmd, t_data *data)
 		write(data->ms_fd, "\n", 1);
 		write(data->ms_fd, cmd->content[i], ft_strlen(cmd->content[i]));
 	}
-	char *temp;
-	temp = get_next_line(STDIN_FILENO);
-	while (temp)
+	char buffer[1024];
+	int bytes_read;
+	while ((bytes_read = read(STDIN_FILENO, buffer, sizeof(buffer))) > 0)
 	{
-		write(data->ms_fd, temp, ft_strlen(temp));
-		free(temp);
-		temp = NULL;
-		temp = get_next_line(STDIN_FILENO);
+		write(data->ms_fd, "gnl: ", 5);
+		write(data->ms_fd, buffer, bytes_read);
+		write(data->ms_fd, "\n", 1);
 	}
-	if (is_builtin(cmd->content[0]))
+	exit(EXIT_SUCCESS);
+	/*if (is_builtin(cmd->content[0]))
 		return (exec_builtin(cmd->content[0],
 				cmd->content, data), exit(EXIT_SUCCESS));
 	if (ft_strncmp(cmd->content[0], "./", 2) == 0
@@ -45,7 +45,7 @@ void	filter_cmd(t_ms_cmd *cmd, t_data *data)
 			exit(EXIT_FAILURE));
 	else
 		return (execve(cmd_path, data->ms_cmd->content, data->tab_envv),
-			free(cmd_path));
+			free(cmd_path));*/
 }
 
 char	*find_cmd(char *cmd_name, t_data *data)
@@ -109,13 +109,14 @@ void	exec_cmd(t_ms_cmd *cmd, t_data *data, int input_fd)
 	{
 		if (input_fd != STDIN_FILENO)
 		{
-			if(cmd->next != NULL)
+			if (cmd->next != NULL)
 				close(pipe_fd[0]);
 			if (dup2(input_fd, STDIN_FILENO) == -1)
 			{
 				ms_error("Could not duplicate fd.", data->ms_fd);
 				exit(EXIT_FAILURE);
 			}
+			close(input_fd);
 		}
 		if (cmd->next != NULL)
 		{
@@ -133,6 +134,7 @@ void	exec_cmd(t_ms_cmd *cmd, t_data *data, int input_fd)
 	{
 		if (cmd->next != NULL)
 			exec_cmd(cmd->next, data, pipe_fd[0]);
+		close(pipe_fd[0]);
 		waitpid(pid, &data->exit_status, 0);
 	}
 	if (cmd->next != NULL)
