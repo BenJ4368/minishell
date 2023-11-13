@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 12:53:42 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/09 15:26:01 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/13 17:50:43 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,38 +14,45 @@
 
 void	filter_cmd(t_ms_cmd *cmd, t_data *data)
 {
-	//char	*cmd_path;
+	char	*cmd_path;
 
+	// char buffer[1024];
+	// int bytes_read;
+	// while ((bytes_read = read(STDIN_FILENO, buffer, sizeof(buffer))) > 0)
+	// {
+	// 	write(data->ms_fd, buffer, bytes_read);
+	// 	write(data->ms_fd, "\n", 1);
+	// 	if (buffer[0] == 'q')
+	// 		break ;
+	// }
 	int i = -1;
 	while (cmd->content[++i])
 	{
-		write(data->ms_fd, "\n", 1);
 		write(data->ms_fd, cmd->content[i], ft_strlen(cmd->content[i]));
-	}
-	char buffer[1024];
-	int bytes_read;
-	while ((bytes_read = read(STDIN_FILENO, buffer, sizeof(buffer))) > 0)
-	{
-		write(data->ms_fd, "gnl: ", 5);
-		write(data->ms_fd, buffer, bytes_read);
 		write(data->ms_fd, "\n", 1);
 	}
-	exit(EXIT_SUCCESS);
-	/*if (is_builtin(cmd->content[0]))
-		return (exec_builtin(cmd->content[0],
-				cmd->content, data), exit(EXIT_SUCCESS));
+	write(data->ms_fd, "\n", 1);
+	if (is_builtin(cmd->content[0]))
+	{
+		exec_builtin(cmd->content[0], cmd->content, data);
+		exit(EXIT_SUCCESS);
+	}
 	if (ft_strncmp(cmd->content[0], "./", 2) == 0
 		|| ft_strncmp(cmd->content[0], "/", 1) == 0)
-		execve(cmd->content[0], data->ms_cmd->content, data->tab_envv);
+		execve(cmd->content[0], cmd->content, data->tab_envv);
 	cmd_path = find_cmd(cmd->content[0], data);
-	write(data->ms_fd, "\n", 1);
-	write(data->ms_fd, cmd_path, ft_strlen(cmd_path));
 	if (!cmd_path)
-		return (ms_error("Command not found.", data->ms_fd),
-			exit(EXIT_FAILURE));
+	{
+		// write(data->ms_fd, "A\n", 2);
+		ms_error("Command not found.", data->ms_fd);
+		exit(EXIT_FAILURE);
+	}
 	else
-		return (execve(cmd_path, data->ms_cmd->content, data->tab_envv),
-			free(cmd_path));*/
+	{
+		// write(data->ms_fd, "B\n", 2);
+		execve(cmd_path, cmd->content, data->tab_envv);
+		free(cmd_path);
+	}
 }
 
 char	*find_cmd(char *cmd_name, t_data *data)
@@ -84,7 +91,7 @@ void	exec_builtin(char *cmd_name, char **cmd_line, t_data *data)
 		builtin_unset(&data->exports, cmd_line + 1);
 }
 
-void	exec_cmd(t_ms_cmd *cmd, t_data *data, int input_fd)
+void	exec_cmd(t_ms_cmd *cmd, t_data *data, int *prevpipe_fd)
 {
 	pid_t	pid;
 	int		*pipe_fd;
@@ -97,7 +104,6 @@ void	exec_cmd(t_ms_cmd *cmd, t_data *data, int input_fd)
 			ms_error("Could not create pipe.", data->ms_fd),
 			exit(EXIT_FAILURE);
 		}
-		printf("pipe_fd[0] = %i\npipe_fd[1] = %i\n", pipe_fd[0], pipe_fd[1]);
 	}
 	pid = fork();
 	if (pid == -1)
@@ -107,34 +113,47 @@ void	exec_cmd(t_ms_cmd *cmd, t_data *data, int input_fd)
 	}
 	else if (pid == 0)
 	{
-		if (input_fd != STDIN_FILENO)
+		// write(data->ms_fd, "### CHILD ### ", 15);
+		// write(data->ms_fd, "\n", 1);
+		// write(data->ms_fd, "prev[0] ", 8);
+		// write(data->ms_fd, ft_itoa(prevpipe_fd[0]), 2);
+		// write(data->ms_fd, "\n", 1);
+		// write(data->ms_fd, "prev[1] ", 8);
+		// write(data->ms_fd, ft_itoa(prevpipe_fd[1]), 2);
+		// write(data->ms_fd, "\n", 1);
+		// write(data->ms_fd, "pipe[0] ", 8);
+		// write(data->ms_fd, ft_itoa(pipe_fd[0]), 2);
+		// write(data->ms_fd, "\n", 1);
+		// write(data->ms_fd, "pipe[1] ", 8);
+		// write(data->ms_fd, ft_itoa(pipe_fd[1]), 2);
+		// write(data->ms_fd, "\n", 1);
+
+		if (prevpipe_fd[0] != STDOUT_FILENO)
 		{
-			if (cmd->next != NULL)
-				close(pipe_fd[0]);
-			if (dup2(input_fd, STDIN_FILENO) == -1)
-			{
-				ms_error("Could not duplicate fd.", data->ms_fd);
-				exit(EXIT_FAILURE);
-			}
-			close(input_fd);
+			// write(data->ms_fd, "prev[0] != stdin", 17);
+			// write(data->ms_fd, "\n", 1);
+			dup2(prevpipe_fd[0], STDIN_FILENO);
 		}
 		if (cmd->next != NULL)
 		{
-			if (dup2(pipe_fd[1], STDOUT_FILENO) == -1)
-			{
-				ms_error("Could not duplicate fd.", data->ms_fd);
-				exit(EXIT_FAILURE);
-			}
-			close(pipe_fd[1]);
+			// write(data->ms_fd, "cmd->next != NULL", 18);
+			// write(data->ms_fd, "\n", 1);
+			dup2(pipe_fd[1], STDOUT_FILENO);
 		}
+		close(pipe_fd[0]);
+		close(prevpipe_fd[1]);
 		filter_cmd(cmd, data);
 		exit(EXIT_SUCCESS);
 	}
 	else
 	{
+		if (prevpipe_fd[0] != STDOUT_FILENO)
+		{
+			close(prevpipe_fd[0]);
+			close(prevpipe_fd[1]);
+		}
 		if (cmd->next != NULL)
-			exec_cmd(cmd->next, data, pipe_fd[0]);
-		close(pipe_fd[0]);
+			exec_cmd(cmd->next, data, pipe_fd);
 		waitpid(pid, &data->exit_status, 0);
 	}
 	if (cmd->next != NULL)

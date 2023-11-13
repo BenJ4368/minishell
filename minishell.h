@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 14:29:00 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/07 10:49:19 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/13 14:56:11 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int			main(int argc, char **argv, char **env);
 void		filter_cmd(t_ms_cmd *cmd, t_data *data);
 char		*find_cmd(char *cmd_name, t_data *data);
 void		exec_builtin(char *cmd_name, char **cmd_line, t_data *data);
-void		exec_cmd(t_ms_cmd *cmd, t_data *data, int input_fd);
+void		exec_cmd(t_ms_cmd *cmd, t_data *data, int *prevpipe_fd);
 // unsupp_char.c
 int			ms_unsupported_char(char *input, int ms_fd);
 int			ms_unsupported_char2(char *input, int i, int ms_fd);

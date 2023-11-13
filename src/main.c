@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 10:41:29 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/09 14:59:22 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/13 17:46:01 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	ms_prepare(t_data *data, char **env)
 
 void	do_minishell(t_data *data)
 {
+	int dummy[2];
 
 	expand_input(data);
 	sanitize_input(data);
@@ -60,7 +61,9 @@ void	do_minishell(t_data *data)
 		runner = runner->next;
 	}
 	printf("execution:\n");*/
-	exec_cmd(data->ms_cmd, data, STDIN_FILENO);
+	dummy[0] = STDOUT_FILENO;
+	dummy[1] = STDIN_FILENO;
+	exec_cmd(data->ms_cmd, data, dummy);
 	free_cmd(data);
 	free(data->input);
 }
