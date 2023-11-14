@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 10:41:29 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/13 17:46:01 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/14 13:54:30 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,27 +43,17 @@ void	ms_prepare(t_data *data, char **env)
 
 void	do_minishell(t_data *data)
 {
-	int dummy[2];
+	int	dummy[2];
 
 	expand_input(data);
 	sanitize_input(data);
 	split_on_pipe(data);
-	/*t_ms_cmd	*runner;
-	runner = data->ms_cmd;
-	int c = 0;
-	while (runner)
-	{
-		c++;
-		int i = -1;
-		while (runner->content[++i])
-			printf("cmd n=%i, content[%i] = %s\n", c, i, runner->content[i]);
-		printf("\n");
-		runner = runner->next;
-	}
-	printf("execution:\n");*/
 	dummy[0] = STDOUT_FILENO;
 	dummy[1] = STDIN_FILENO;
-	exec_cmd(data->ms_cmd, data, dummy);
+	if (is_builtin(data->ms_cmd->content[0]) && data->ms_cmd->next == NULL)
+		exec_builtin(data->ms_cmd->content[0], data->ms_cmd->content, data);
+	else
+		exec_cmd(data->ms_cmd, data, dummy);
 	free_cmd(data);
 	free(data->input);
 }

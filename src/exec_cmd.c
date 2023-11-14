@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 12:53:42 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/13 17:50:43 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/14 13:21:53 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,6 @@ void	filter_cmd(t_ms_cmd *cmd, t_data *data)
 {
 	char	*cmd_path;
 
-	// char buffer[1024];
-	// int bytes_read;
-	// while ((bytes_read = read(STDIN_FILENO, buffer, sizeof(buffer))) > 0)
-	// {
-	// 	write(data->ms_fd, buffer, bytes_read);
-	// 	write(data->ms_fd, "\n", 1);
-	// 	if (buffer[0] == 'q')
-	// 		break ;
-	// }
-	int i = -1;
-	while (cmd->content[++i])
-	{
-		write(data->ms_fd, cmd->content[i], ft_strlen(cmd->content[i]));
-		write(data->ms_fd, "\n", 1);
-	}
-	write(data->ms_fd, "\n", 1);
 	if (is_builtin(cmd->content[0]))
 	{
 		exec_builtin(cmd->content[0], cmd->content, data);
@@ -43,13 +27,11 @@ void	filter_cmd(t_ms_cmd *cmd, t_data *data)
 	cmd_path = find_cmd(cmd->content[0], data);
 	if (!cmd_path)
 	{
-		// write(data->ms_fd, "A\n", 2);
 		ms_error("Command not found.", data->ms_fd);
 		exit(EXIT_FAILURE);
 	}
 	else
 	{
-		// write(data->ms_fd, "B\n", 2);
 		execve(cmd_path, cmd->content, data->tab_envv);
 		free(cmd_path);
 	}
@@ -96,7 +78,7 @@ void	exec_cmd(t_ms_cmd *cmd, t_data *data, int *prevpipe_fd)
 	pid_t	pid;
 	int		*pipe_fd;
 
-	if (cmd->next != NULL)
+	if (cmd->next)
 	{
 		pipe_fd = malloc(sizeof(int) * 2);
 		if (pipe(pipe_fd) == -1)
@@ -113,34 +95,13 @@ void	exec_cmd(t_ms_cmd *cmd, t_data *data, int *prevpipe_fd)
 	}
 	else if (pid == 0)
 	{
-		// write(data->ms_fd, "### CHILD ### ", 15);
-		// write(data->ms_fd, "\n", 1);
-		// write(data->ms_fd, "prev[0] ", 8);
-		// write(data->ms_fd, ft_itoa(prevpipe_fd[0]), 2);
-		// write(data->ms_fd, "\n", 1);
-		// write(data->ms_fd, "prev[1] ", 8);
-		// write(data->ms_fd, ft_itoa(prevpipe_fd[1]), 2);
-		// write(data->ms_fd, "\n", 1);
-		// write(data->ms_fd, "pipe[0] ", 8);
-		// write(data->ms_fd, ft_itoa(pipe_fd[0]), 2);
-		// write(data->ms_fd, "\n", 1);
-		// write(data->ms_fd, "pipe[1] ", 8);
-		// write(data->ms_fd, ft_itoa(pipe_fd[1]), 2);
-		// write(data->ms_fd, "\n", 1);
-
 		if (prevpipe_fd[0] != STDOUT_FILENO)
-		{
-			// write(data->ms_fd, "prev[0] != stdin", 17);
-			// write(data->ms_fd, "\n", 1);
 			dup2(prevpipe_fd[0], STDIN_FILENO);
-		}
-		if (cmd->next != NULL)
+		if (cmd->next)
 		{
-			// write(data->ms_fd, "cmd->next != NULL", 18);
-			// write(data->ms_fd, "\n", 1);
 			dup2(pipe_fd[1], STDOUT_FILENO);
+			close(pipe_fd[0]);
 		}
-		close(pipe_fd[0]);
 		close(prevpipe_fd[1]);
 		filter_cmd(cmd, data);
 		exit(EXIT_SUCCESS);

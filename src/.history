@@ -286,3 +286,43 @@ ls | wc
 ls | grep a
 ls | grep a | wc -l
 cat | cat | ls
+ls
+ls | ls
+dd
+ls
+ls
+ls | ls
+cat | cat | ls
+ls | grep a | wc -l
+ls | grep a | wc
+l
+eg
+ehwth
+cat
+echo oui
+export AAAAAAAAAA=5
+env
+echo lol | pwd
+echo lol
+echo Bonjour
+env
+export AAAA=5
+env
+export AAAA=10
+env
+ls | export AAAA=15
+env
+ls | unset AAAA
+env
+unset AAAA
+env
+cat
+cat main.c
+cat src/main.c
+cat
+cat
+cat
+cat
+cat src/main.c
+cat src/main.c
+cat
