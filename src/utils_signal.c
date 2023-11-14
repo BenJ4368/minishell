@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:39:35 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/03 16:16:06 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/14 19:56:40 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	sigint_handler(int signal)
 		rl_redisplay();
 	}
 }
-//check si l'on est dans un minishell parent(redisplay) ou un enfant(le quitter)
 
 void	sigquit_handler(int signal)
 {
