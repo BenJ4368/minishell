@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 14:29:00 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/13 14:56:11 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/15 13:17:16 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,5 +125,6 @@ void		ms_error(char *msg, int ms_fd);
 void		copy_env(t_ms_list **ms_envv, char **env);
 void		free_ms(t_data *data, t_ms_list	*current, t_ms_list	*next);
 void		free_cmd(t_data *data);
+int			only_white_spaces(char *str);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:55:27 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/06 19:20:01 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/15 13:29:18 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	check_input(char *input, int ms_fd)
 	if (check_forbidden_char(input, "\\;&*"))
 		return (ms_error("Forbidden character use.", ms_fd), 1);
 	if (ms_unsupported_char(input, ms_fd))
+		return (1);
+	if (only_white_spaces(input))
 		return (1);
 	return (0);
 }

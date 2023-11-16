@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:39:35 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/14 19:56:40 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/15 13:41:06 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,5 @@ void	sigint_handler(int signal)
 
 void	sigquit_handler(int signal)
 {
-	if (signal == SIGQUIT)
-		rl_redisplay();
+	(void)signal;
 }

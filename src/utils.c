@@ -6,11 +6,29 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:37:11 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/06 19:11:56 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/15 13:33:28 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	only_white_spaces(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+	{
+		if (str[i] != ' '
+			&& str[i] != '\t'
+			&& str[i] != '\n'
+			&& str[i] != '\v'
+			&& str[i] != '\f'
+			&& str[i] != '\r')
+			return (0);
+	}
+	return (1);
+}
 
 void	ms_error(char *msg, int ms_fd)
 {

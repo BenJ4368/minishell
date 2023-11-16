@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 19:53:06 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/07 09:35:32 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/15 12:58:29 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,4 @@
 int	extract_redir(t_ms_cmd *cmd, t_data *data)
 {
 	
-
 }*/
