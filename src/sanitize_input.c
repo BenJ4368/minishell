@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sanitize_input.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssalor <ssalor@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 13:56:05 by ssalor            #+#    #+#             */
-/*   Updated: 2023/10/27 11:49:29 by ssalor           ###   ########.fr       */
+/*   Updated: 2023/11/17 11:41:52 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,24 @@ int	is_white_space(char c)
 		|| c == '\f'
 		|| c == '\r')
 		return (1);
+	return (0);
+}
+
+int	check_for_blank_cmd(char **tab)
+{
+	int	i;
+
+	i = -1;
+	while (tab[++i])
+	{
+		if (only_white_spaces(tab[i]))
+		{
+			i = -1;
+			while (tab[++i])
+				free(tab[i]);
+			free(tab);
+			return (1);
+		}
+	}
 	return (0);
 }

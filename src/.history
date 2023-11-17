@@ -493,3 +493,10 @@ cat
 cat
 cat
 cat
+ls |   | ls
+ls |   | ls
+ls | grep a |   | wc
+ls |
+ls |    
+ls |    
+ls |

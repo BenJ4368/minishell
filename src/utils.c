@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:37:11 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/15 13:33:28 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/17 11:30:04 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,7 @@ int	only_white_spaces(char *str)
 	i = -1;
 	while (str[++i])
 	{
-		if (str[i] != ' '
-			&& str[i] != '\t'
-			&& str[i] != '\n'
-			&& str[i] != '\v'
-			&& str[i] != '\f'
-			&& str[i] != '\r')
+		if (!is_white_space(str[i]))
 			return (0);
 	}
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 14:29:00 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/15 13:17:16 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/17 13:09:55 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@ typedef struct ms_lst_s
 typedef struct ms_cmd_s
 {
 	char			**content;
+	char			*redir_type;
+	char			*redir_path;
+	char			*heredoc_key;
 	struct ms_cmd_s	*next;
 	struct ms_cmd_s	*prev;
 }				t_ms_cmd;
@@ -78,7 +81,7 @@ int			ft_split_unquoted_write(char **tab, char const *s, char c);
 void		ft_split_unquoted_write_word(char *dest, const char *src, char c);
 int			ft_split_unquoted_nope(char **tab, int size);
 // split_on_pipe.c
-void		split_on_pipe(t_data *data);
+int			split_on_pipe(t_data *data);
 void		remove_quoting(char **tab);
 // expand_input.c
 char		*get_var_value(t_ms_list *ms_envv,
@@ -89,6 +92,7 @@ int			has_var_sign(char *s);
 // sanitize_input.c
 void		sanitize_input(t_data *data);
 int			is_white_space(char c);
+int			check_for_blank_cmd(char **tab);
 // builtins_1.c
 void		builtin_env(t_ms_list *ms_envv, t_ms_list *exports);
 void		builtin_pwd(void);
@@ -126,5 +130,7 @@ void		copy_env(t_ms_list **ms_envv, char **env);
 void		free_ms(t_data *data, t_ms_list	*current, t_ms_list	*next);
 void		free_cmd(t_data *data);
 int			only_white_spaces(char *str);
+// redir.c
+int			extract_redirs(t_data *data)
 
 #endif

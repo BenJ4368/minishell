@@ -6,13 +6,13 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:46:05 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/05 19:05:03 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/17 13:36:58 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	split_on_pipe(t_data *data)
+int	split_on_pipe(t_data *data)
 {
 	int		i;
 	int		j;
@@ -21,10 +21,13 @@ void	split_on_pipe(t_data *data)
 
 	i = -1;
 	tab_pipe = ft_split_unquoted(data->input, '|');
+	if (check_for_blank_cmd(tab_pipe))
+		return (ms_error("Syntax error near unexpected token '|'",
+				data->ms_fd), -1);
 	while (tab_pipe[++i])
 	{
 		tab_space = ft_split_unquoted(tab_pipe[i], ' ');
-		remove_quoting(tab_space);
+		extract_redirs_and_quoting(tab_space);
 		ms_cmd_add_back(&data->ms_cmd, ft_tabdup((const char **)tab_space));
 		j = -1;
 		while (tab_space[++j])
@@ -35,6 +38,7 @@ void	split_on_pipe(t_data *data)
 	}
 	free(tab_pipe);
 	tab_pipe = NULL;
+	return (0);
 }
 
 void	remove_quoting(char **tab)
