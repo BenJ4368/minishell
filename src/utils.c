@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:37:11 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/17 11:30:04 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/20 15:50:03 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void	free_cmd(t_data *data)
 		i = -1;
 		while (current->content[++i])
 			free(current->content[i]);
+		free(current->quoted);
 		free(current->content);
 		free(current);
 		current = next;

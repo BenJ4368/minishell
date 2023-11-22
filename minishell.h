@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 14:29:00 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/17 13:09:55 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/21 14:15:36 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct ms_cmd_s
 	char			*redir_type;
 	char			*redir_path;
 	char			*heredoc_key;
+	int				*quoted;
 	struct ms_cmd_s	*next;
 	struct ms_cmd_s	*prev;
 }				t_ms_cmd;
@@ -82,7 +83,9 @@ void		ft_split_unquoted_write_word(char *dest, const char *src, char c);
 int			ft_split_unquoted_nope(char **tab, int size);
 // split_on_pipe.c
 int			split_on_pipe(t_data *data);
-void		remove_quoting(char **tab);
+int			*remove_quoting(char **tab);
+int			*extract_redirs_and_quoting(t_ms_cmd *node);
+int			tablen(char **tab);
 // expand_input.c
 char		*get_var_value(t_ms_list *ms_envv,
 				t_ms_list *exports, char *var_name);
@@ -118,6 +121,9 @@ void		prompt(t_data *data);
 // utils_signal.c
 void		sigint_handler(int signal);
 void		sigquit_handler(int signal);
+int			check_interactive(char *input);
+void		free_tab(char **tab);
+char		*globalisation(char *input, int elephant);
 // utils_list.c
 void		ms_list_add_back(t_ms_list **list, char *cmd);
 t_ms_list	*get_last_node_list(t_ms_list *list);
@@ -130,7 +136,10 @@ void		copy_env(t_ms_list **ms_envv, char **env);
 void		free_ms(t_data *data, t_ms_list	*current, t_ms_list	*next);
 void		free_cmd(t_data *data);
 int			only_white_spaces(char *str);
-// redir.c
-int			extract_redirs(t_data *data)
+// set_redir.c
+void		set_redir_output(t_ms_cmd *node, int i);
+void		set_redir_output_append(t_ms_cmd *node, int i);
+void		set_redir_input(t_ms_cmd *node, int i);
+void		set_redir_heredoc(t_ms_cmd *node, int i);
 
 #endif

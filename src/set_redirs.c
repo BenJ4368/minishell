@@ -1,25 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redir.c                                            :+:      :+:    :+:   */
+/*   set_redirs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/04 19:53:06 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/17 13:36:59 by bgaertne         ###   ########.fr       */
+/*   Created: 2023/11/21 11:36:07 by bgaertne          #+#    #+#             */
+/*   Updated: 2023/11/21 14:13:16 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	extract_redirs(t_data *data)
+void	set_redir_output(t_ms_cmd *node, int i)
 {
-	t_ms_cmd *runner;
+	(void)node;
+	(void)i;
+	printf("redir_ouput\n");
+}
 
-	runner = data->ms_cmd;
-	while (runner)
-	{
-		
-		runner = runner->next;
-	}
+void	set_redir_output_append(t_ms_cmd *node, int i)
+{
+	(void)node;
+	(void)i;
+	printf("redir_ouput_append\n");
+}
+
+void	set_redir_input(t_ms_cmd *node, int i)
+{
+	(void)node;
+	(void)i;
+	printf("redir_input\n");
+}
+
+void	set_redir_heredoc(t_ms_cmd *node, int i)
+{
+	(void)node;
+	(void)i;
+	printf("redir_heredoc\n");
 }

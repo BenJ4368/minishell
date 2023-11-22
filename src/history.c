@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 09:46:11 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/09 14:44:46 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/21 11:25:32 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	init_ms_history(int ms_fd)
 	char	*history_entry;
 
 	//fd = open("/home/ubuntu/Desktop/minishell/src/.history",
-	fd = open("/local-home/bgaertne/goinfre/minishell/src/.history",
+	fd = open("/local-home/bgaertne/goinfre/Minishell/src/.history",
 			O_RDWR | O_CREAT, 77777);
 	if (fd == -1)
 		return (ms_error("Failed to open/create .history file.", ms_fd), 1);
@@ -42,7 +42,7 @@ int	ms_history(char *input, int ms_fd)
 	int	fd;
 
 	//fd = open("/home/ubuntu/Desktop/minishell/src/.history",
-	fd = open("/local-home/bgaertne/goinfre/minishell/src/.history",
+	fd = open("/local-home/bgaertne/goinfre/Minishell/src/.history",
 			O_RDWR | O_CREAT | O_APPEND, 00777);
 	if (fd == -1)
 		return (ms_error("Failed to open/create .history file.", ms_fd), 1);

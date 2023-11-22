@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 15:07:55 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/04 16:00:19 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/21 15:12:44 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ char	*ft_strdup(const char *src)
 	size_t	i;
 
 	i = 0;
+	if (!src)
+		return (NULL);
 	while (src[i])
 		i++;
 	dest = malloc((i + 1) * sizeof(*dest));

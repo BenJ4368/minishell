@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 18:14:51 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/04 18:28:57 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/21 13:05:58 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	ms_cmd_add_back(t_ms_cmd **list, char **content)
 
 	new_node = ft_calloc(sizeof(t_ms_cmd), 1);
 	new_node->content = content;
+	new_node->quoted = extract_redirs_and_quoting(new_node);
 	if (*list == NULL)
 		*list = new_node;
 	else

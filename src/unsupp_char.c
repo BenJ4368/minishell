@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 10:39:00 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/06 19:20:28 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/21 14:53:10 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int	ms_unsupported_char(char *input, int ms_fd)
 						&& check_in_quotes(input, i, 0, 0) == 0)
 					&& (input[i + 1] == '|'
 						&& check_in_quotes(input, i + 1, 0, 0) == 0))))
-			return (ms_error("Syntax error near unexpected token '|'", ms_fd), 1);
+			return (ms_error("Syntax error near unexpected token '|'",
+					ms_fd), 1);
 		if ((input[i] == '$' && check_in_quotes(input, i, 0, 0) != 1)
 			&& (input[i + 1] == '$'
 				&& check_in_quotes(input, i, 0, 0) != 1))
@@ -39,7 +40,6 @@ int	ms_unsupported_char(char *input, int ms_fd)
 	}
 	return (0);
 }
-
 
 int	ms_unsupported_char2(char *input, int i, int ms_fd)
 {

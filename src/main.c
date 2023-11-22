@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 10:41:29 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/17 13:23:27 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/21 15:21:07 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void	ms_prepare(t_data *data, char **env)
 
 void	do_minishell(t_data *data)
 {
-	int	dummy[2];
+	int			dummy[2];
+	t_ms_cmd	*runner;
 
 	expand_input(data);
 	sanitize_input(data);
@@ -51,6 +52,14 @@ void	do_minishell(t_data *data)
 		return ;
 	dummy[0] = dup(STDOUT_FILENO);
 	dummy[1] = dup(STDIN_FILENO);
+	runner = data->ms_cmd;
+	while (runner)
+	{
+		int i = -1;
+		while (runner->content[++i])
+			printf("%s, %i\n", runner->content[i], runner->quoted[i]);
+		runner = runner->next;
+	}
 	if (is_builtin(data->ms_cmd->content[0]) && data->ms_cmd->next == NULL)
 		exec_builtin(data->ms_cmd->content[0], data->ms_cmd->content, data);
 	else
@@ -66,15 +75,18 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	ms_prepare(&data, env);
+	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, sigquit_handler);
 	while (1)
 	{
 		prompt(&data);
-		signal(SIGINT, sigint_handler);
-		signal(SIGQUIT, sigquit_handler);
 		data.input = readline(data.prompt);
+		if (data.input == NULL)
+			exit(0);
 		free(data.prompt);
 		if (data.input && !ft_strncmp(data.input, "exit\0", 5))
 			return (free_ms(&data, NULL, NULL), exit(0), 0);
+		globalisation(data.input, 1);
 		if (data.input && ft_strlen(data.input) >= 1)
 		{
 			ms_history(data.input, data.ms_fd);
