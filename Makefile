@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ssalor <ssalor@student.42.fr>              +#+  +:+       +#+         #
+#    By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/24 10:41:40 by bgaertne          #+#    #+#              #
-#    Updated: 2023/11/22 13:07:15 by bgaertne         ###   ########.fr        #
+#    Updated: 2023/11/22 16:56:02 by bgaertne         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ OBJS		= ${SRCS:.c=.o}
 
 all: $(LIBFT) $(NAME)
 	@echo ""
-	@echo "$(_CYAN)$(_BOLD)[Vincent]$(_END) $(_BOLD) $(_PURPLE)Project $(NAME) $(_GREEN)ready$(_END)"
+	@echo "$(_CYAN)$(_BOLD)[Makefile]$(_END) $(_BOLD) $(_PURPLE)Project $(NAME) $(_GREEN)ready$(_END)"
 	@echo ""
 
 $(LIBFT):
@@ -37,18 +37,18 @@ $(LIBFT):
 
 $(NAME): $(OBJS)
 	@gcc -Wall -Werror -Wextra -fsanitize=address $(OBJS) $(LIBFT) -o $(NAME) -lreadline 
-	@echo "$(_CYAN)$(_BOLD)[Vincent]$(_END) $(_BOLD)$(NAME) $(_GREEN)created$(_END)"
+	@echo "$(_CYAN)$(_BOLD)[Makefile]$(_END) $(_BOLD)$(NAME) $(_GREEN)created$(_END)"
 
 clean:
 	@rm -f $(OBJS)
 	@cd TheLibft && $(MAKE) clean
-	@echo "$(_CYAN)$(_BOLD)[Vincent]$(_END) $(_BOLD)$(NAME) is now $(_YELLOW)clean$(_END)"
+	@echo "$(_CYAN)$(_BOLD)[Makefile]$(_END) $(_BOLD)$(NAME) is now $(_YELLOW)clean$(_END)"
 
 fclean: clean
 	@rm -f $(NAME)
 	@rm -f TheLibft/libft.a
-	@echo "$(_CYAN)$(_BOLD)[Vincent]$(_END) $(_BOLD)libft.a $(_RED)deleted$(_END)"
-	@echo "$(_CYAN)$(_BOLD)[Vincent]$(_END) $(_BOLD)$(NAME) $(_RED)deleted$(_END)"
+	@echo "$(_CYAN)$(_BOLD)[Makefile]$(_END) $(_BOLD)libft.a $(_RED)deleted$(_END)"
+	@echo "$(_CYAN)$(_BOLD)[Makefile]$(_END) $(_BOLD)$(NAME) $(_RED)deleted$(_END)"
 
 re: clean all
 

@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:55:27 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/17 11:18:11 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/22 16:15:18 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	check_input(char *input, int ms_fd)
 		return (ms_error("Forbidden character use.", ms_fd), 1);
 	if (ms_unsupported_char(input, ms_fd))
 		return (1);
+	if (empty_redirs_ouput(input) || empty_redirs_input(input))
+		return (ms_error("Syntax error near unexpected token 'newline'", ms_fd), 1);
 	if (only_white_spaces(input))
 		return (1);
 	return (0);

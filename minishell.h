@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 14:29:00 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/21 14:15:36 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/22 14:49:09 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct ms_cmd_s
 {
 	char			**content;
 	char			*redir_type;
-	char			*redir_path;
+	int				redir_fd;
 	char			*heredoc_key;
 	int				*quoted;
 	struct ms_cmd_s	*next;
@@ -84,7 +84,7 @@ int			ft_split_unquoted_nope(char **tab, int size);
 // split_on_pipe.c
 int			split_on_pipe(t_data *data);
 int			*remove_quoting(char **tab);
-int			*extract_redirs_and_quoting(t_ms_cmd *node);
+void		extract_redirs(t_ms_cmd *node);
 int			tablen(char **tab);
 // expand_input.c
 char		*get_var_value(t_ms_list *ms_envv,
@@ -141,5 +141,8 @@ void		set_redir_output(t_ms_cmd *node, int i);
 void		set_redir_output_append(t_ms_cmd *node, int i);
 void		set_redir_input(t_ms_cmd *node, int i);
 void		set_redir_heredoc(t_ms_cmd *node, int i);
+// check_redirs.c
+int			empty_redirs_ouput(char *input);
+int			empty_redirs_input(char *input);
 
 #endif

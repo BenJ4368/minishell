@@ -6,7 +6,7 @@
 /*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:46:05 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/21 14:13:44 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/22 20:16:55 by bgaertne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,25 +68,24 @@ int	*remove_quoting(char **tab)
 	return (quoting);
 }
 
-int	*extract_redirs_and_quoting(t_ms_cmd *node)
+void	extract_redirs(t_ms_cmd *node)
 {
-	int	*quoting;
 	int	i;
 
 	i = -1;
 	while (node->content[++i])
 	{
-		if (!ft_strncmp(node->content[i], ">\0", 2))
+		if (node->content[i] && !ft_strncmp(node->content[i], ">\0", 2))
 			set_redir_output(node, i);
-		if (!ft_strncmp(node->content[i], ">>\0", 3))
+		//segfault ici
+		printf("%s\n", node->content[i]);
+		if (node->content[i] && !ft_strncmp(node->content[i], ">>\0", 3))
 			set_redir_output_append(node, i);
-		if (!ft_strncmp(node->content[i], "<\0", 3))
+		if (node->content[i] && !ft_strncmp(node->content[i], "<\0", 2))
 			set_redir_input(node, i);
-		if (!ft_strncmp(node->content[i], "<<\0", 3))
+		if (node->content[i] && !ft_strncmp(node->content[i], "<<\0", 3))
 			set_redir_heredoc(node, i);
 	}
-	quoting = remove_quoting(node->content);
-	return (quoting);
 }
 
 int	tablen(char **tab)

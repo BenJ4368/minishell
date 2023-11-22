@@ -600,3 +600,210 @@ eit
 cat
 cat
 cat
+echo lol > lol
+echo lol >> lol
+echo lol >> lol
+echo lol << lol
+echo lol < lol
+echo lol < lol
+echo lol << lol
+echo lol >> lol
+echo lol > lol
+echo lol > lol
+echo lol >> lol
+ls >> t
+ls >> t
+ls > t
+ls < t
+ls <> t
+ls << t
+ls << t
+ls <> t
+ls < t
+ls > t
+ls >> t
+ls >> t
+ls > t
+ls > t
+ls < t
+ls <> t
+ls <> t
+ls > t
+ls >> t
+ls <> t
+ls <> t
+ls <> t
+ls >> t
+ls >> t
+ls > t
+ls < t
+ls << t
+ls <> t
+ls <> t
+ls << t
+ls < t
+ls > t
+ls >> t
+ls >>> t
+ls >>< t
+ls >> > t
+ls >> < t
+ls >>t
+ls >> t
+ls >">" t
+ls ">">" t
+ls "">">" t
+ls "">">""" t
+ls >> "t"
+ls >> ""
+ls >> ''
+ls >> 'd'
+echo bonjour
+echo bonjour
+echo "bonjour"
+echo truc > lol
+echo truc > lol
+clear
+echo truc > lol
+echo truc > lol
+echo truc > lol
+echo truc > lol
+echo truc > lol
+exi
+exi
+echo truc > lol
+echo truc > "lol"
+echo truc > lol
+echo "truc" > lol
+echo "truc" > lol "lol"
+echo "truc" > lol "lol"
+echo "truc" > lol "bou"
+echo "truc" > lol "bou"
+echo "truc" > lol "bou"
+echo "truc" > lol "bou"
+echo "truc" > lol "bou"
+echo "truc" > lol "bou"
+echo "truc" > lol "bouddd
+echo "truc" > lol "bou"
+echo "truc" > lol
+echo "truc" > lol "bou"
+echo "truc" >
+echo "truc" > lol > oui
+echo "truc" > lol > oui
+echo "truc" > lol > oui
+echo "truc" > lol > oui
+echo "truc" > lol "bou"
+echo "truc" > lol "bou"
+echo "truc" > lol "bou"
+echo "truc" > lol "bou"
+echo "truc" > lol "bou"
+echo "truc" > lol "bou"
+echo "truc" > lol "bou"
+echo "truc" > lol "bou"
+echo "truc" > lol "bou"
+echo "truc" > lol "bou"
+echo "truc" > lol "bou"
+echo "truc" > lol "bou"
+echo "truc" > lol "bou"
+echo "truc" > lol "bou"
+echo "truc" > lol "bou"
+echo "truc" > lol "bou"
+echo "truc" > lol "bou"
+echo "truc" > lol "bou"
+echo "truc" > lol "bou"
+echo "truc" > lol "bou"
+echo "truc" > lol "bou"
+echo "truc" > lol "gou"
+echo "truc" > lol "gou"
+echo "truc" > lol "gou"
+echo "truc" > lol "gou"
+echo "truc" > lol "gou"
+echo "truc" > lol "gou"
+echo "truc" > lol "gou"
+echo "truc" > lol "gou"
+echo "truc" > lol "gou"
+echo "truc" > lol gou
+echo "truc" > "dfg"
+echo "truc" > "dfg"
+echo "truc" > lol gou
+echo "truc" > lol gou
+echo "truc""" > lol gou
+echo "truc""" > lol gou oui
+echo "truc""" > lol gou oui rt
+echo "truc""" > lol gou oui rt le me tou
+echo "truc""" > lol gou oui
+echo "truc""" > lol gou oui sxdcv
+echo "truc""" > lol "gou" "oui sxdcv"
+echo "truc""" > lol "gou" "oui sx""dcv"
+echo "truc""" "gou" "oui sx""dcv" > lol*
+echo "truc""" "gou" "oui sx""dcv" > lol
+echo "truc" "gou" "oui sxdcv" > lol
+echo "truc" "gou" "oui sxdcv" > l
+echo "truc" "gou" "oui sxdcv" > lol       
+echo "truc" "gou" "oui sxdcv" > lol lol*
+echo "truc" "gou" "oui sxdcv" > lol lol
+echo "truc" "gou" "oui sxdcv" > lol 1
+echo "truc" "gou" "oui sxdcv" > lol 1353443543543543
+echo "truc" "gou" "oui sxdcv" > lol 135344"3543"543543
+echo "truc" "gou" "oui sxdcv" > lol
+echo "truc""" > lol "gou" "oui sxdcv"
+echo truc > lol
+echo truc > lol
+echo truc > lol
+echo "truc""" > lol "gou" "oui sxdcv"
+echo "truc" "gou" "oui sxdcv" > lol
+echo "truc" "gou" "oui sxdcv" > lol 1353443543543543
+echo "truc" "gou" "oui sxdcv" > lol 1353443543543543
+echo "truc" "gou" "oui sxdcv" > lol 1353443543543543
+echo "truc" "gou" "oui sxdcv" > lol 1353443543543543
+echo "truc" "gou" "oui sxdcv" > lol 1353443543543543
+echo "truc" "gou" "oui sxdcv" > lol 1353443543543543
+echo "truc" "gou" "oui sxdcv" > lol 1353443543543543
+echo "truc" > fichier "machin"
+echo "truc" > fichier "machin"
+echo "truc" > fichier "machin"
+echo "truc" "gou" "oui sxdcv" > lol 1353443543543543
+echo truc > lol
+echo truc > lol
+echo truc > lol
+echo truc > lol
+echo truc > lol
+echo truc > lol
+echo truc > lol
+echo truc > lol
+echo truc > lol
+echo truc > lol
+echo truc > lol
+echo truc > lol
+echo truc > lol
+echo truc > lol
+echo truc > lol
+echo truc > lol
+echo truc > lol
+echo truc > lol
+echo truc > lol
+echo truc > lol
+echo truc > lol
+echo truc > lol
+echo truc > lol
+echo truc > lol
+echo truc > lol "vouvou"
+echo truc > lol "vouvou"
+echo truc > lol
+echo lol > tg > gg
+echo lol > tg > gg
+echo lol > tg > gg
+echo lol > tg
+echo lol > tg
+echo lol > tg > gg
+echo lol > tg > gg 
+echo lol ">" tg > gg 
+echo lol tg > gg 
+echo lol tg > gg 
+54
+echo lol tg > gg 
+echo lol tg > gg lol
+echo lol tg > gg ntm
+echo lol tg > gg ""
+echo lol tg > gg ''
+echo lol tg > gg "$USER"
