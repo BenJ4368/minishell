@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_on_pipe.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssalor <ssalor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:46:05 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/22 20:16:55 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/23 14:02:36 by ssalor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,25 @@ void	extract_redirs(t_ms_cmd *node)
 	while (node->content[++i])
 	{
 		if (node->content[i] && !ft_strncmp(node->content[i], ">\0", 2))
+		{
 			set_redir_output(node, i);
-		//segfault ici
-		printf("%s\n", node->content[i]);
+			i = 0;
+		}
 		if (node->content[i] && !ft_strncmp(node->content[i], ">>\0", 3))
+		{
 			set_redir_output_append(node, i);
+			i = 0;
+		}
 		if (node->content[i] && !ft_strncmp(node->content[i], "<\0", 2))
+		{
 			set_redir_input(node, i);
+			i = 0;
+		}
 		if (node->content[i] && !ft_strncmp(node->content[i], "<<\0", 3))
+		{
 			set_redir_heredoc(node, i);
+			i = 0;
+		}
 	}
 }
 
