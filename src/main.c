@@ -6,7 +6,7 @@
 /*   By: ssalor <ssalor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 10:41:29 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/23 15:32:06 by ssalor           ###   ########.fr       */
+/*   Updated: 2023/11/23 15:48:17 by ssalor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	do_minishell(t_data *data)
 	dummy[0] = dup(STDOUT_FILENO);
 	dummy[1] = dup(STDIN_FILENO);
 	if (is_builtin(data->ms_cmd->content[0]) && data->ms_cmd->next == NULL)
-		exec_builtin(data->ms_cmd->content[0], data->ms_cmd->content, data);
+		exec_builtin(data->ms_cmd, data);
 	else
 		exec_cmd(data->ms_cmd, data, dummy);
 	free_cmd(data);

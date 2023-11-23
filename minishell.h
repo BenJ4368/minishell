@@ -6,7 +6,7 @@
 /*   By: ssalor <ssalor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 14:29:00 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/23 14:38:57 by ssalor           ###   ########.fr       */
+/*   Updated: 2023/11/23 15:49:47 by ssalor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int			main(int argc, char **argv, char **env);
 // exec_cmd.c
 void		filter_cmd(t_ms_cmd *cmd, t_data *data);
 char		*find_cmd(char *cmd_name, t_data *data);
-void		exec_builtin(char *cmd_name, char **cmd_line, t_data *data);
+void		exec_builtin(t_ms_cmd *cmd, t_data *data);
 void		exec_cmd(t_ms_cmd *cmd, t_data *data, int *prevpipe_fd);
 // unsupp_char.c
 int			ms_unsupported_char(char *input, int ms_fd);

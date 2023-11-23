@@ -6,7 +6,7 @@
 /*   By: ssalor <ssalor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 12:53:42 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/23 15:31:21 by ssalor           ###   ########.fr       */
+/*   Updated: 2023/11/23 16:02:47 by ssalor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	filter_cmd(t_ms_cmd *cmd, t_data *data)
 
 	if (is_builtin(cmd->content[0]))
 	{
-		exec_builtin(cmd->content[0], cmd->content, data);
+		exec_builtin(cmd, data);
 		exit(EXIT_SUCCESS);
 	}
 	if (ft_strncmp(cmd->content[0], "./", 2) == 0
@@ -54,23 +54,39 @@ char	*find_cmd(char *cmd_name, t_data *data)
 	return (NULL);
 }
 
-void	exec_builtin(char *cmd_name, char **cmd_line, t_data *data)
+void	exec_builtin(t_ms_cmd *cmd, t_data *data)
 {
 	int	len;
+	int saved_stdin = dup(STDIN_FILENO);
+	int saved_stdout = dup(STDOUT_FILENO);
 
-	len = ft_strlen(cmd_name);
-	if (!ft_strncmp(cmd_name, "env\0", len + 1))
+	len = ft_strlen(cmd->content[0]);
+	if (cmd->redir_in_fd != 0)
+	{
+		dup2(cmd->redir_in_fd, STDIN_FILENO);
+		close(cmd->redir_in_fd);
+	}
+	if (cmd->redir_out_fd != 0)
+	{
+		dup2(cmd->redir_out_fd, STDOUT_FILENO);
+		close(cmd->redir_out_fd);
+	}
+	if (!ft_strncmp(cmd->content[0], "env\0", len + 1))
 		builtin_env(data->ms_envv, data->exports);
-	if (!ft_strncmp(cmd_name, "pwd\0", len + 1))
+	if (!ft_strncmp(cmd->content[0], "pwd\0", len + 1))
 		builtin_pwd();
-	if (!ft_strncmp(cmd_name, "cd\0", len + 1))
-		builtin_cd(cmd_line[1], data->ms_fd);
-	if (!ft_strncmp(cmd_name, "echo\0", len + 1))
-		builtin_echo(cmd_line + 1);
-	if (!ft_strncmp(cmd_name, "export\0", len + 1))
-		builtin_export(&data->exports, (cmd_line + 1), data->ms_fd);
-	if (!ft_strncmp(cmd_name, "unset\0", len + 1))
-		builtin_unset(&data->exports, cmd_line + 1);
+	if (!ft_strncmp(cmd->content[0], "cd\0", len + 1))
+		builtin_cd(cmd->content[1], data->ms_fd);
+	if (!ft_strncmp(cmd->content[0], "echo\0", len + 1))
+		builtin_echo(cmd->content + 1);
+	if (!ft_strncmp(cmd->content[0], "export\0", len + 1))
+		builtin_export(&data->exports, (cmd->content + 1), data->ms_fd);
+	if (!ft_strncmp(cmd->content[0], "unset\0", len + 1))
+		builtin_unset(&data->exports, cmd->content + 1);
+	dup2(saved_stdin, STDIN_FILENO);
+	dup2(saved_stdout, STDOUT_FILENO);
+	close(saved_stdin);
+	close(saved_stdout);
 }
 
 void	exec_cmd(t_ms_cmd *cmd, t_data *data, int *prevpipe_fd)
