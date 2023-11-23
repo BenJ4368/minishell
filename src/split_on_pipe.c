@@ -6,7 +6,7 @@
 /*   By: ssalor <ssalor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:46:05 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/23 14:02:36 by ssalor           ###   ########.fr       */
+/*   Updated: 2023/11/23 14:39:50 by ssalor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void	extract_redirs(t_ms_cmd *node)
 	int	i;
 
 	i = -1;
+	node->redir_out_fd = 0;
+	node->redir_in_fd = 0;
 	while (node->content[++i])
 	{
 		if (node->content[i] && !ft_strncmp(node->content[i], ">\0", 2))
@@ -90,11 +92,11 @@ void	extract_redirs(t_ms_cmd *node)
 			set_redir_input(node, i);
 			i = 0;
 		}
-		if (node->content[i] && !ft_strncmp(node->content[i], "<<\0", 3))
+		/*if (node->content[i] && !ft_strncmp(node->content[i], "<<\0", 3))
 		{
 			set_redir_heredoc(node, i);
 			i = 0;
-		}
+		}*/
 	}
 }
 

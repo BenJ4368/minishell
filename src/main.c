@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssalor <ssalor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 10:41:29 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/22 16:23:53 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/23 15:32:06 by ssalor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	ms_prepare(t_data *data, char **env)
 void	do_minishell(t_data *data)
 {
 	int			dummy[2];
-	t_ms_cmd	*runner;
 
 	expand_input(data);
 	sanitize_input(data);
@@ -52,14 +51,6 @@ void	do_minishell(t_data *data)
 		return ;
 	dummy[0] = dup(STDOUT_FILENO);
 	dummy[1] = dup(STDIN_FILENO);
-	runner = data->ms_cmd;
-	while (runner)
-	{
-		int i = -1;
-		while (runner->content[++i])
-			printf("%s, %i\n", runner->content[i], runner->quoted[i]);
-		runner = runner->next;
-	}
 	if (is_builtin(data->ms_cmd->content[0]) && data->ms_cmd->next == NULL)
 		exec_builtin(data->ms_cmd->content[0], data->ms_cmd->content, data);
 	else

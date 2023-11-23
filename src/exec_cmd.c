@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssalor <ssalor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 12:53:42 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/14 13:21:53 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/23 15:31:21 by ssalor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,20 @@ void	exec_cmd(t_ms_cmd *cmd, t_data *data, int *prevpipe_fd)
 	{
 		if (prevpipe_fd[0] != STDOUT_FILENO)
 			dup2(prevpipe_fd[0], STDIN_FILENO);
+		if (cmd->redir_in_fd != 0)
+		{
+			dup2(cmd->redir_in_fd, STDIN_FILENO);
+			close(cmd->redir_in_fd);
+		}
 		if (cmd->next)
 		{
 			dup2(pipe_fd[1], STDOUT_FILENO);
 			close(pipe_fd[0]);
+		}
+		if (cmd->redir_out_fd != 0)
+		{
+			dup2(cmd->redir_out_fd, STDOUT_FILENO);
+			close(cmd->redir_out_fd);
 		}
 		close(prevpipe_fd[1]);
 		filter_cmd(cmd, data);

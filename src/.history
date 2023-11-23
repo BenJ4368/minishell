@@ -860,3 +860,44 @@ rm -rf gg
 rm -rf gt
 echo lol tg > gg 
 rm -rf gg
+echo lol tg > gg 
+echo lol tg > gg >> lo
+echo lol tg > gg 
+echo lol tg > gg 
+echo lol tg > gg >> lo
+echo lol tg > gg >> lo
+echo lol tg > gg >> lo
+echo lol tg > gg 
+echo lol tg > gg 
+echo lol tg > gg 
+echo lol tg > "gg"
+echo lol tg > gg 
+echo "lol" tg > gg 
+echo "lol" tg > gg 
+echo "lol" tg > gg 
+echo "lol" tg > gg 
+echo "lol" tg > gg 
+echo "lol" tg > gg | ls
+echo "lol" tg > gg | ls
+ls
+ls > gg
+ls
+rm -rf gg
+echo bonjour
+echo bonjour
+echo bonjour > fichier
+echo bonjour > fichier
+echo bonjour > fichier
+echo bonjour > fichier
+echo bonjour > fichier
+echo "bonjou" > fichier
+echo "bonjou" > fichier
+echo "bonjou" > fichier | ls
+echo "bonjou" > fichier > kaka | ls
+echo "bonjou" > fichier > kaka | ls
+echo "bonjou" > fichier > kaka | ls > truc
+echo "bonjou" > fichier | echo < fichier
+echo "bonjou" > fichier | echo < fichier
+echo < fichier | ls
+echo < fichier | wc -l
+ls | echo < fichier

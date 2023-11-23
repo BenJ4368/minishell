@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssalor <ssalor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 14:29:00 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/22 14:49:09 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/23 14:38:57 by ssalor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ typedef struct ms_cmd_s
 {
 	char			**content;
 	char			*redir_type;
-	int				redir_fd;
+	int				redir_out_fd;
+	int				redir_in_fd;
 	char			*heredoc_key;
 	int				*quoted;
 	struct ms_cmd_s	*next;
