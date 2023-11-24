@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_list.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgaertne <bgaertne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssalor <ssalor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 18:14:51 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/22 14:09:01 by bgaertne         ###   ########.fr       */
+/*   Updated: 2023/11/24 12:24:33 by ssalor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char	**list_to_tab(t_ms_list *ms_envv)
 		runner = runner->next;
 		i++;
 	}
-	tab_envv =  ft_calloc(sizeof(char *), i + 1);
+	tab_envv = ft_calloc(sizeof(char *), i + 1);
 	runner = ms_envv;
 	i = -1;
 	while (runner)

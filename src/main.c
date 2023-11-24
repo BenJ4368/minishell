@@ -6,7 +6,7 @@
 /*   By: ssalor <ssalor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 10:41:29 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/23 15:48:17 by ssalor           ###   ########.fr       */
+/*   Updated: 2023/11/24 15:07:06 by ssalor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	do_minishell(t_data *data)
 {
 	int			dummy[2];
 
-	expand_input(data);
+	expand_input(data, -1, 0);
 	sanitize_input(data);
 	if (split_on_pipe(data) == -1)
 		return ;

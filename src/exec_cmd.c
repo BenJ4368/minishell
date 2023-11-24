@@ -6,7 +6,7 @@
 /*   By: ssalor <ssalor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 12:53:42 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/23 16:02:47 by ssalor           ###   ########.fr       */
+/*   Updated: 2023/11/24 13:43:48 by ssalor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,8 @@ char	*find_cmd(char *cmd_name, t_data *data)
 	return (NULL);
 }
 
-void	exec_builtin(t_ms_cmd *cmd, t_data *data)
+void	exec_builin2(t_ms_cmd *cmd)
 {
-	int	len;
-	int saved_stdin = dup(STDIN_FILENO);
-	int saved_stdout = dup(STDOUT_FILENO);
-
-	len = ft_strlen(cmd->content[0]);
 	if (cmd->redir_in_fd != 0)
 	{
 		dup2(cmd->redir_in_fd, STDIN_FILENO);
@@ -71,6 +66,17 @@ void	exec_builtin(t_ms_cmd *cmd, t_data *data)
 		dup2(cmd->redir_out_fd, STDOUT_FILENO);
 		close(cmd->redir_out_fd);
 	}
+}
+
+void	exec_builtin(t_ms_cmd *cmd, t_data *data)
+{
+	int	len;
+	int	saved_stdin;
+	int	saved_stdout;
+
+	saved_stdin = dup(STDIN_FILENO);
+	saved_stdout = dup(STDOUT_FILENO);
+	len = ft_strlen(cmd->content[0]);
 	if (!ft_strncmp(cmd->content[0], "env\0", len + 1))
 		builtin_env(data->ms_envv, data->exports);
 	if (!ft_strncmp(cmd->content[0], "pwd\0", len + 1))
@@ -89,60 +95,18 @@ void	exec_builtin(t_ms_cmd *cmd, t_data *data)
 	close(saved_stdout);
 }
 
-void	exec_cmd(t_ms_cmd *cmd, t_data *data, int *prevpipe_fd)
+void	do_heredoc(t_ms_cmd *cmd, t_data *data)
 {
-	pid_t	pid;
-	int		*pipe_fd;
+	char	*input;
 
-	if (cmd->next)
+	dup2(1, STDIN_FILENO);
+	input = NULL;
+	while (1)
 	{
-		pipe_fd = malloc(sizeof(int) * 2);
-		if (pipe(pipe_fd) == -1)
-		{
-			ms_error("Could not create pipe.", data->ms_fd),
-			exit(EXIT_FAILURE);
-		}
+		input = get_next_line(STDIN_FILENO);
+		write(data->ms_fd, input, ft_strlen(input));
+		write(data->ms_fd, "\n", 1);
+		if (input == cmd->heredoc_key)
+			break ;
 	}
-	pid = fork();
-	if (pid == -1)
-	{
-		ms_error("Could not create child process.", data->ms_fd);
-		exit(EXIT_FAILURE);
-	}
-	else if (pid == 0)
-	{
-		if (prevpipe_fd[0] != STDOUT_FILENO)
-			dup2(prevpipe_fd[0], STDIN_FILENO);
-		if (cmd->redir_in_fd != 0)
-		{
-			dup2(cmd->redir_in_fd, STDIN_FILENO);
-			close(cmd->redir_in_fd);
-		}
-		if (cmd->next)
-		{
-			dup2(pipe_fd[1], STDOUT_FILENO);
-			close(pipe_fd[0]);
-		}
-		if (cmd->redir_out_fd != 0)
-		{
-			dup2(cmd->redir_out_fd, STDOUT_FILENO);
-			close(cmd->redir_out_fd);
-		}
-		close(prevpipe_fd[1]);
-		filter_cmd(cmd, data);
-		exit(EXIT_SUCCESS);
-	}
-	else
-	{
-		if (prevpipe_fd[0] != STDOUT_FILENO)
-		{
-			close(prevpipe_fd[0]);
-			close(prevpipe_fd[1]);
-		}
-		if (cmd->next != NULL)
-			exec_cmd(cmd->next, data, pipe_fd);
-		waitpid(pid, &data->exit_status, 0);
-	}
-	if (cmd->next != NULL)
-		free(pipe_fd);
 }

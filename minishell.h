@@ -6,7 +6,7 @@
 /*   By: ssalor <ssalor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 14:29:00 by bgaertne          #+#    #+#             */
-/*   Updated: 2023/11/23 15:49:47 by ssalor           ###   ########.fr       */
+/*   Updated: 2023/11/24 15:18:56 by ssalor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,13 @@
 # define MAGENTA "\001\x1b[35m\002"
 # define BOLD "\001\x1b[1m\002"
 # define STOP "\001\x1b[0m\002"
+
+typedef struct ms_norm_s
+{
+	char	*var_name;
+	char	*var_value;
+	char	*new_input;
+}			t_ms_norm;
 
 typedef struct ms_lst_s
 {
@@ -67,11 +74,18 @@ typedef struct ms_data_s
 void		ms_prepare(t_data *data, char **env);
 void		do_minishell(t_data *data);
 int			main(int argc, char **argv, char **env);
+// exec_cmd_main.c
+void		exec_cmd(t_ms_cmd *cmd, t_data *data, int *prevpipe_fd);
+int			*exec_cmd1(t_data *data);
+void		exec_cmd2(t_ms_cmd *cmd, t_data *data,
+				int *prevpipe_fd, int *pipe_fd);
+void		exec_cmd3(int *prevpipe_fd);
 // exec_cmd.c
 void		filter_cmd(t_ms_cmd *cmd, t_data *data);
 char		*find_cmd(char *cmd_name, t_data *data);
 void		exec_builtin(t_ms_cmd *cmd, t_data *data);
-void		exec_cmd(t_ms_cmd *cmd, t_data *data, int *prevpipe_fd);
+void		exec_builin2(t_ms_cmd *cmd);
+void		do_heredoc(t_ms_cmd *cmd, t_data *data);
 // unsupp_char.c
 int			ms_unsupported_char(char *input, int ms_fd);
 int			ms_unsupported_char2(char *input, int i, int ms_fd);
@@ -87,11 +101,16 @@ int			split_on_pipe(t_data *data);
 int			*remove_quoting(char **tab);
 void		extract_redirs(t_ms_cmd *node);
 int			tablen(char **tab);
+void		check_redir_type(t_ms_cmd *node, int *i);
+// expand_input_main.c
+int			expand_input1(int j, char *new_input, char *var_value);
+char		*expand_input2(t_data *data, char *var_value, char *var_name);
+void		expand_input3(t_data *data, char *new_input, char *var_name);
+void		expand_input(t_data *data, int i, int j);
 // expand_input.c
 char		*get_var_value(t_ms_list *ms_envv,
 				t_ms_list *exports, char *var_name);
 char		*get_var_name(char *input);
-void		expand_input(t_data *data);
 int			has_var_sign(char *s);
 // sanitize_input.c
 void		sanitize_input(t_data *data);

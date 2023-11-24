@@ -1,6 +1,7 @@
 {
 	"files.associations": {
 		"get_next_line.h": "c",
-		"minishell.h": "c"
+		"minishell.h": "c",
+		"readline.h": "c"
 	}
 }
